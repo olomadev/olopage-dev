@@ -16,7 +16,7 @@ export default defineConfig({
   transpileDependencies: ["vuetify"],
   server: {
     host: '0.0.0.0',
-    port: 3000
+    port: 3001
   },
   // fixes sass 2.0 deprecation bug
   // https://stackoverflow.com/questions/78997907/the-legacy-js-api-is-deprecated-and-will-be-removed-in-dart-sass-2-0-0

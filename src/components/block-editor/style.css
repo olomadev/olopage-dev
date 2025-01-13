@@ -20,6 +20,13 @@
     @apply text-1xl;
   }
 }
+.blockeditor {
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.8rem;
+  }
+}
 .blockeditor ol, ul:not(.snackbar-errors) {
   @apply text-lg;
 }

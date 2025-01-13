@@ -378,11 +378,21 @@
 import slugify from 'slugify';
 import i18n from "@/i18n";
 import Trans from "@/i18n/translation";
+import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3"
 import MenuButton from "@/components/block-editor/MenuButton.vue"
 import MenuItem from "@/components//block-editor/MenuItem.vue"
 import MenuDropdownButton from "@/components//block-editor/MenuDropdownButton.vue"
-import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3"
-import StarterKit from "@tiptap/starter-kit"
+import Document from '@tiptap/extension-document';
+import Paragraph from '@tiptap/extension-paragraph';
+import Heading from '@tiptap/extension-heading';
+import BulletList from '@tiptap/extension-bullet-list';
+import OrderedList from '@tiptap/extension-ordered-list';
+import ListItem from '@tiptap/extension-list-item';
+import Text from '@tiptap/extension-text';
+import HardBreak from '@tiptap/extension-hard-break';
+import History from '@tiptap/extension-history';
+import Bold from '@tiptap/extension-bold';
+import Italic from '@tiptap/extension-italic';
 import Link from "@tiptap/extension-link"
 import Placeholder from "@tiptap/extension-placeholder"
 import Table from "@tiptap/extension-table"
@@ -546,10 +556,25 @@ export default {
     const Self = this
     this.editor = new Editor({
       extensions: [
-        StarterKit.configure({
-          codeBlock: false,
-          blockquote: false,
+        Document,
+        Paragraph,
+        Heading,
+        BulletList.configure({
+          HTMLAttributes: {
+            class: 'list-disc pl-5',
+          },
         }),
+        OrderedList.configure({
+          HTMLAttributes: {
+            class: 'list-decimal pl-5',
+          },
+        }),
+        ListItem,
+        Text,
+        HardBreak,
+        History,
+        Bold,
+        Italic,
         Blockquote.extend({
           content: "paragraph",
         }),
