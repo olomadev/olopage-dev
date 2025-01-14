@@ -369,8 +369,35 @@
       ref="editor"
       :editor="editor"
     />
+    <!-- hidden file upload input -->
     <input type="file" id="file-upload-input" ref="fileInput" @change="onFileChange" accept="image/png,image/jpg,image/jpeg,image/gif,image/webp" hidden  />
 
+    <!-- vuetify crop modal dialog -->
+    <v-dialog v-model="showCropModal" max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Crop Image</span>
+        </v-card-title>
+        <v-card-text>
+          <vue-cropper
+            :src="imageData"
+            ref="cropper"
+            :aspect-ratio="600 / 413"
+            :auto-crop="false"
+            :crop-box-resizable="false"
+            :view-mode="1"
+            :check-cross-origin="false"
+            :scalable="false"
+            :movable="true"
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="cancelCrop">Cancel</v-btn>
+          <v-btn color="primary" text @click="confirmCrop">Crop & Upload</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -432,6 +459,8 @@ import defaultAlignmentTools from "./tools/alignment-tools";
 import { tableRowTools, tableColumnTools } from "./tools/table-tools";
 import { isValidURL, getApiUrl, generateUid } from "@/utils"
 import config from "@/_config"
+import "cropperjs/dist/cropper.css";
+import VueCropper from "vue-cropperjs";
 
 export default {
   setup() {
@@ -492,6 +521,7 @@ export default {
     },
   },
   components: {
+    VueCropper,
     BubbleMenu,
     EditorContent,
     MenuButton,
@@ -500,6 +530,9 @@ export default {
   },
   data() {
     return {
+      imageData: null,
+      fileToUpload: null,
+      showCropModal: false,
       fileInput: null,
       dragging: false,
       newElement: false,
@@ -716,25 +749,59 @@ export default {
       if (file) {
         const reader = new FileReader();
         reader.onload = async () => {
-          const maxSize = 2 * 1024 * 1024; // 2 MB
-          if (file.size > maxSize) {
-            this.admin.message("error", i18n.global.t("fileupload.messages.fileSizeExceeded"))
-            return
-          }
-          const base64 = await this.startImageProcess(reader.result);
-          const uploadedfileName = await this.uploadFileToServer(file, base64);
-          if (uploadedfileName) {
-            const caption = window.prompt('caption')
-            const fileUrl = getApiUrl('/files/display?fileName=' + uploadedfileName);
-            this.editor.chain().focus().setFigure({ src: fileUrl, caption: caption }).run()
-            this.$emit("uploadedImage", uploadedfileName);
+          const base64Str = await this.startImageReduceProcess(reader.result);
+          //
+          // start cropping process
+          // 
+          const img = new window.Image()
+          img.src = base64Str
+          img.onload = () => {
+            if (img.width > 600 || img.height > 413) { // don't allow to upload without cropping images larger than 600x413
+              this.imageData = base64Str;
+              this.fileToUpload = file;
+              this.showCropModal = true;
+            } else {
+              this.uploadFile(file, base64Str);
+            }
           }
         };
         reader.readAsDataURL(file);
       }
-      event.target.value = ""; // Reset the input
+      event.target.value = ""; // reset the input
     },
-    async startImageProcess(base64Str) {
+    async uploadFile(file, imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2 MB
+      if (file.size > maxSize) {
+        this.admin.message("error", i18n.global.t("fileupload.messages.fileSizeExceeded"));
+        return;
+      }
+      const uploadedfileName = await this.uploadFileToServer(file, imageData);
+      if (uploadedfileName) {
+        const caption = window.prompt("caption");
+        const fileUrl = getApiUrl("/files/display?fileName=" + uploadedfileName);
+        this.editor.chain().focus().setFigure({ src: fileUrl, caption }).run();
+        this.$emit("uploadedImage", uploadedfileName);
+      }
+    },
+    cancelCrop() {
+      this.showCropModal = false;
+      this.imageData = null;
+      this.fileToUpload = null;
+    },
+    confirmCrop() {
+      const croppedCanvas = this.$refs.cropper.getCroppedCanvas({
+        width: 600,
+        height: 413
+      });
+      const base64Image = croppedCanvas.toDataURL();  // Base64 formatında imajı alıyoruz
+
+      // Base64 verisini sunucuya göndermek için uploadFile fonksiyonunu çağırıyoruz
+      this.uploadFile(this.fileToUpload, base64Image)
+        .finally(() => {
+          this.cancelCrop();  // Kırpma işlemi bittikten sonra modal pencereyi kapatıyoruz
+        });
+    },
+    async startImageReduceProcess(base64Str) {
       const minImageSize = 300;
       const oldSize = this.calcImageSize(base64Str);
       if (oldSize > minImageSize) {
@@ -746,29 +813,29 @@ export default {
     },
     async reduceImageFileSize(base64Str, maxWidth = 800, maxHeight = 600) {
       let resizedBase64 = await new Promise((resolve) => {
-          let img = new window.Image()
-          img.src = base64Str
-          img.onload = () => {
-              let canvas = document.createElement('canvas')
-              let width = img.width
-              let height = img.height
-              if (width > height) {
-                if (width > maxWidth) {
-                    height *= maxWidth / width
-                    width = maxWidth
-                }
-              } else {
-                if (height > maxHeight) {
-                    width *= maxHeight / height
-                    height = maxHeight
-                }
+        let img = new window.Image()
+        img.src = base64Str
+        img.onload = () => {
+            let canvas = document.createElement('canvas')
+            let width = img.width
+            let height = img.height
+            if (width > height) {
+              if (width > maxWidth) {
+                  height *= maxWidth / width
+                  width = maxWidth
               }
-              canvas.width = width
-              canvas.height = height
-              let ctx = canvas.getContext('2d')
-              ctx.drawImage(img, 0, 0, width, height)
-              resolve(canvas.toDataURL()) // this will return base64 image results after resize
-          }
+            } else {
+              if (height > maxHeight) {
+                  width *= maxHeight / height
+                  height = maxHeight
+              }
+            }
+            canvas.width = width
+            canvas.height = height
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            resolve(canvas.toDataURL()) // this will return base64 image results after resize
+        }
       });
       return resizedBase64;
     },
@@ -907,4 +974,10 @@ export default {
 
 <style>
 @import "style.css";
+
+/* Vue Cropper container */
+.vue-cropper-container {
+  width: 100%;
+  max-height: 400px;
+}
 </style>
