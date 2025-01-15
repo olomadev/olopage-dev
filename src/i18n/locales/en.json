@@ -129,12 +129,25 @@
   "blockeditor": {
     "toolbar": {
       "transformTo" : "Transform To"
-    }
+    },
+    "fileupload": {
+      "messages": {
+        "fileSizeExceeded": "Uploaded file size cannot exceed 2 mb"
+      }
+    },
   },
-  "fileupload": {
-    "messages": {
-      "fileSizeExceeded": "Uploaded file size cannot exceed 2 mb"
-    }
+  "classiceditor": {
+    "addLink": "Add Link",
+    "linkUrl": "Link URL",
+    "addTable": "Add Table",
+    "addYoutubeVideo": "Add Video Youtube",
+    "youtubeVideoUrl": "Youtube URL",
+    "tableRow": "Row",
+    "tableColumn": "Column",
+    "tableHeader": "Header",
+    "imageDropText": "Drop the files here ...",
+    "imageUploadText": "Drag 'n' drop some image file here, or click to select file",
+    "selectedImage": "Selected Image"
   },
   "resources": {
     "swagger": {

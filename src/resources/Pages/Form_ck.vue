@@ -6,7 +6,7 @@
         <v-row no-gutters class="classiceditor-form">
           <v-col>
 
-            <TiptapEditor></TiptapEditor>
+            <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
 
 <!--               <va-text-input
               source="route"
@@ -75,25 +75,34 @@
 
   </v-row>
 </template>
+
 <script>
 import { provide } from 'vue';
 import { useDisplay } from 'vuetify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 import Utils from "olobase-admin/src/mixins/utils";
-import TiptapEditor from '@/components/classic-editor/TiptapEditor.vue';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+
+import { ClassicEditor, FullPage } from 'ckeditor5';
+import { FormatPainter } from 'ckeditor5-premium-features';
+import { Ckeditor, } from '@ckeditor/ckeditor5-vue';
+
+import 'ckeditor5/ckeditor5.css';
+import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 
 export default {
   props: ["id", "item"],
   mixins: [Utils],
   components: {
-    TiptapEditor
+    ckeditor: Ckeditor,
   },
   setup() {
     let vuelidate = useVuelidate();
     const { smAndDown } = useDisplay();
     provide('v$', vuelidate)
-    return { v$: vuelidate , smAndDown}
+    return { v$: vuelidate, smAndDown }
   },
   validations: {
     model: {
@@ -107,18 +116,16 @@ export default {
         minLength: minLength(2),
         maxLength: maxLength(100),
       },
-      keywords: {
-        required,
-      },
-      description: {
-        required,
-        minLength: minLength(30),
-        maxLength: maxLength(255),
-      },
     }
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorData: '<p>Type your content here!</p>',
+      editorConfig: {
+        licenseKey: 'GPL',
+        plugins: [ FullPage ],
+      },
       loading: false,
       previewable: false,
       loadingPublish: false,
@@ -223,44 +230,15 @@ export default {
       // this.showMessage("info", message)
       this.loadingPublish = false
     },
-    routeErrors() {
-      const errors = [];
-      if (!this.v$['model'].route.$dirty) return errors;
-      this.v$['model'].route.required.$invalid &&
-        errors.push(this.$t("v.text.required"));
-      this.v$['model'].route.minLength.$invalid &&
-        errors.push(this.$t("v.string.minLength", { min: "1" }));
-      this.v$['model'].route.maxLength.$invalid &&
-        errors.push(this.$t("v.string.maxLength", { max: "60" }));
-      return errors;
-    },
-    titleErrors() {
-      const errors = [];
-      if (!this.v$['model'].title.$dirty) return errors;
-      this.v$['model'].title.required.$invalid &&
-        errors.push(this.$t("v.text.required"));
-      this.v$['model'].title.minLength.$invalid &&
-        errors.push(this.$t("v.string.minLength", { min: "2" }));
-      this.v$['model'].title.maxLength.$invalid &&
-        errors.push(this.$t("v.string.maxLength", { max: "100" }));
-      return errors;
-    },
-    keywordErrors() {
-      const errors = [];
-      if (!this.v$["model"].keywords.$dirty) return errors;
-      this.v$["model"].keywords.required.$invalid &&
-        errors.push(this.$t("v.text.required"));
-      return errors;
-    },
-    descriptionErrors() {
-      const errors = [];
-      if (!this.v$["model"].description.$dirty) return errors;
-      this.v$["model"].description.minLength.$invalid &&
-        errors.push(this.$t("v.string.minLength", { min: "30" }));
-      this.v$["model"].description.maxLength.$invalid &&
-        errors.push(this.$t("v.string.maxLength", { max: "255" }));
-      return errors;
-    },
   },
 }
 </script>
+
+<style>
+.classiceditor-form {
+  background-color: white;
+}
+.ck-editor__editable {
+  min-height: 200px;
+}
+</style>

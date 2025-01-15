@@ -1,5 +1,5 @@
 <template>
-  <div class="blockeditor">
+  <div class="tailwind blockeditor">
     <bubble-menu
       v-if="editor && tableRowTools"
       :editor="editor"
@@ -452,7 +452,7 @@ import BlockWidth from "./extensions/block-width";
 import { TrailingNode } from "./extensions/trailing-node";
 import Variants from "./extensions/variants";
 import Commands from "./commands";
-import suggestion from "./suggestion";
+// import suggestion from "./suggestion";
 import defaultBlockTools from "./tools/block-tools";
 import defaultInlineTools from "./tools/inline-tools";
 import defaultAlignmentTools from "./tools/alignment-tools";
@@ -772,7 +772,7 @@ export default {
     async uploadFile(file, imageData) {
       const maxSize = 2 * 1024 * 1024; // 2 MB
       if (file.size > maxSize) {
-        this.admin.message("error", i18n.global.t("fileupload.messages.fileSizeExceeded"));
+        this.admin.message("error", i18n.global.t("blockeditor.fileupload.messages.fileSizeExceeded"));
         return;
       }
       const uploadedfileName = await this.uploadFileToServer(file, imageData);
@@ -793,12 +793,10 @@ export default {
         width: 600,
         height: 413
       });
-      const base64Image = croppedCanvas.toDataURL();  // Base64 formatında imajı alıyoruz
-
-      // Base64 verisini sunucuya göndermek için uploadFile fonksiyonunu çağırıyoruz
+      const base64Image = croppedCanvas.toDataURL();
       this.uploadFile(this.fileToUpload, base64Image)
         .finally(() => {
-          this.cancelCrop();  // Kırpma işlemi bittikten sonra modal pencereyi kapatıyoruz
+          this.cancelCrop();
         });
     },
     async startImageReduceProcess(base64Str) {

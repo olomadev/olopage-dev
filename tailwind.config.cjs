@@ -7,6 +7,7 @@ module.exports = {
     "./src/**/*.{vue,vuetify,js,js,ts,jsx,tsx}",
     "./views/*.ejs",
   ],
+  safelist: ['flex'],
   theme: {
     extend: {
       colors: {
@@ -74,9 +75,10 @@ module.exports = {
       "5xl": ['56px'],
     }
   },
-  important: ".blockeditor",
+  // important: ".tailwind",
   plugins: [
     require('flowbite-typography'),
+    require("@headlessui/tailwindcss"),
     // require("@tailwindcss/typography"),
     plugin(function ({ addVariant }) {
       addVariant("mouse", "@media (hover: hover)");

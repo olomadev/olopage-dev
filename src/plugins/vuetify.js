@@ -35,6 +35,11 @@ const defaultTheme = {
 };
 // Vuetify 
 export default createVuetify({
+  defaults: {
+    global: {
+      class: 'vuetify-',
+    },
+  },
   components: {
     VTreeview,
   },

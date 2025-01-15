@@ -159,7 +159,7 @@
         <v-btn class="ms-auto" text @click="editPermalinkDialog = false">{{ $t('va.actions.save') }}</v-btn>
       </v-card-actions>
     </v-card>
-  </v-dialog>
+  </v-dialog>  
 </template>
 
 <script>

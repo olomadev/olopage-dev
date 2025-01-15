@@ -1,5 +1,9 @@
 <template>
-  <va-create-layout :title="title">
+  <va-create-layout 
+    :title="title"
+    disable-card
+    disable-title
+  >
     <pages-form :item="item"></pages-form>
   </va-create-layout>
 </template>

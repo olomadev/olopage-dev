@@ -132,7 +132,25 @@
   "blockeditor": {
     "toolbar": {
       "transformTo" : "Buna Dönüştür"
-    }
+    },
+    "fileupload": {
+      "messages": {
+        "fileSizeExceeded": "Yüklenen dosyanın boyutu 2 mb'ı geçemez"
+      }
+    },
+  },
+  "classiceditor": {
+    "addLink": "Bağlantı Ekle",
+    "linkUrl": "Bağlantı URL",
+    "addTable": "Tablo Ekle",
+    "addYoutubeVideo": "Video Ekle - Youtube",
+    "youtubeVideoUrl": "Youtube URL",
+    "tableRow": "Satır",
+    "tableColumn": "Sütun",
+    "tableHeader": "Başlık",
+    "imageDropText": "Dosyaları buraya bırakın...",
+    "imageUploadText": "Buraya bir resim dosyası sürükleyip bırakın veya dosyayı seçmek için tıklayın",
+    "selectedImage": "Seçili Resim"
   },
   "resources": {
     "swagger": {
