@@ -96,6 +96,32 @@
 .blockeditor blockquote .ProseMirror-trailingBreak {
   display: none;
 }
+.blockeditor blockquote {
+  background:   #f9f9f9;
+  border-left:  10px solid #ccc;
+  margin:     1.5em 10px;
+  padding:    .5em 10px;
+  quotes:     "\201C""\201D""\2018""\2019";
+}
+.blockeditor blockquote:before {
+  color:      #ccc;
+  content:    open-quote;
+  font-size:    3em;
+  line-height:  .1em;
+  margin-right: .15em;
+  vertical-align: -.4em;
+}
+.blockeditor blockquote:after {
+  color:      #ccc;
+  content:    close-quote;
+  font-size:    3em;
+  line-height:  .1em;
+  margin-left: .15em;
+  vertical-align: -.4em;
+}
+.blockeditor blockquote p {
+  display:    inline;
+}
 .blockeditor .ProseMirror p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;

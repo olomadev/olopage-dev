@@ -410,6 +410,7 @@ import MenuButton from "@/components/block-editor/MenuButton.vue"
 import MenuItem from "@/components//block-editor/MenuItem.vue"
 import MenuDropdownButton from "@/components//block-editor/MenuDropdownButton.vue"
 import Document from '@tiptap/extension-document';
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Paragraph from '@tiptap/extension-paragraph';
 import Heading from '@tiptap/extension-heading';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -590,6 +591,7 @@ export default {
     this.editor = new Editor({
       extensions: [
         Document,
+        HorizontalRule,
         Paragraph,
         Heading,
         BulletList.configure({
