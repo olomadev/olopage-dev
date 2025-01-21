@@ -5,10 +5,26 @@
       <va-form :id="id" :item="item" v-model="model">
         <v-row no-gutters class="classiceditor-form">
           <v-col>
+      
+            <!-- 
+              Custom Upload
+              https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
+            -->
 
-            <TiptapEditor></TiptapEditor>
+            <VuetifyTiptap
+              ref="VuetifyTiptapRef"
+              v-model="model.contentJson"
+              v-model:markdown-theme="markdownTheme"
+              output="json"
+              :outlined="outlined"
+              :error-messages="errorMessages"
+              rounded
+              :min-height="600"
+              :max-width="maxWidth"
+              @change="onChange"
+            />
 
-<!--               <va-text-input
+<!--        <va-text-input
               source="route"
               :error-messages="routeErrors"
             ></va-text-input>
@@ -81,13 +97,12 @@ import { useDisplay } from 'vuetify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 import Utils from "olobase-admin/src/mixins/utils";
-import TiptapEditor from '@/components/classic-editor/TiptapEditor.vue';
 
 export default {
   props: ["id", "item"],
   mixins: [Utils],
   components: {
-    TiptapEditor
+    
   },
   setup() {
     let vuelidate = useVuelidate();
@@ -117,18 +132,34 @@ export default {
       },
     }
   },
+  watch: {
+    "model.contentJson"(val) {
+      console.error(val)
+    }
+  },
   data() {
     return {
+      fileNames: [], // store all files
       loading: false,
       previewable: false,
       loadingPublish: false,
+      VuetifyTiptapRef: null,
+      output: null,
+      content: null,
+      markdownTheme: null,
+      outlined: true,
+      editHtml: false,
+      errorMessages: null,
+      maxWidth: 900,
       model: {
         id: null,
         route: null,
         title: null,
-        keywords: null,
-        description: null,
-        publishStatus: 0,
+        keywords: [],
+        description: null,        
+        contentHtml: null,
+        contentJson: null,
+        publishStatus: "draft",
       },
     };
   },
@@ -137,9 +168,70 @@ export default {
     if (!this.id) {
       this.model.password = this.generatePassword(8);
     }
+    if (this.model.contentJson != null) {
+      this.setContentImages(this.model.contentJson)
+    }
   },
-  computed: {
+  methods: {
+    onChange({ editor, output }) {
+      const json = editor.getJSON();
+
+      // console.error(json['content']);
+
+      if (json['content'] && Array.isArray(json.content)) {
+        json.content.forEach(row => {
+          if (row?.content && row.content[0]) {
+            const item = row.content[0];
+            if (item?.attrs?.src) {
+              const src = item.attrs.src;
+              const urlParams = new URLSearchParams(src.split('?')[1]);
+              const fileName = urlParams.get('fileName');
+              if (fileName) {
+                if (!this.fileNames.includes(fileName)) {
+                  this.fileNames.push(fileName);  
+                }
+              }
+            }
+          }
+        });
+      }
+      //
+      // delete operations
+      //
+      let foundImages = []
+      json.content.forEach(row => {
+        if (row?.content && row.content[0]) {
+          const item = row.content[0];
+          if (item?.attrs?.src) {
+            const src = item.attrs.src;
+            const urlParams = new URLSearchParams(src.split('?')[1]);
+            const fileName = urlParams.get('fileName');
+            if (fileName) {
+              foundImages.push(fileName);
+            }
+          }
+        }
+      });
+      this.fileNames.forEach(name => {
+        if (! foundImages.includes(name)) {
+          console.error("Delete images request for: " + name);
+          foundImages = []; // reset delete image storage
+          const index = this.fileNames.indexOf(name); // delete image from fileNames
+          if (index > -1) {
+            this.fileNames.splice(index, 1);
+          }
+        }
+      });
+
+      // console.log('output :>> ', output)
+      // console.log('output[html] :>> ', editor.getHTML())
+      // console.log('output[json] :>> ', editor.getJSON())
+      // console.log('output[text] :>> ', editor.getText())
+    },
+
     async save() {
+      const json = this.model.contentJson;
+      
       // const Self = this;
       // this.loading = false
       // if (this.model.contentHtml === '<p></p><p></p>') {
@@ -178,6 +270,9 @@ export default {
       // }
       // this.loading = false;
     },
+
+  },
+  computed: {
     publishStatusIcon() {
       return this.model.publishStatus === 'published' ? 'mdi-publish-off' : 'mdi-publish';
     },

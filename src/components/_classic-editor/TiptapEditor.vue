@@ -50,11 +50,11 @@
         <TiptapToolbarButton @click="editor?.chain().focus().setHorizontalRule().run()" label="Horizontal Line">
           <IconMinus class="h-5 w-5" />
         </TiptapToolbarButton>
-        <TiptapToolbarButton @click="toggleHtmlMode" label="Code View">
+
+        <TiptapToolbarButton :is-active="htmlMode" @click="toggleHtmlMode" label="Code View">
           <IconCode class="h-5 w-5" />
         </TiptapToolbarButton>
       </TiptapToolbarGroup>
-
 
       <TiptapToolbarGroup v-if="editor?.isActive('table')">
         <TiptapToolbarButton @click="editor?.commands.deleteTable()" label="Remove table"
@@ -174,11 +174,17 @@
       </TiptapToolbarGroup>
     </div>
 
-    <div class="flex flex-col">
+    <div id="editor-area" class="flex flex-col">
       <EditorContent :editor="editor" />
-<!--       <div class="mx-4 border-t border-gray-300 py-3 text-right text-sm text-gray-500">
-        {{ characterCount }} characters, {{ wordCount }} words
-      </div> -->
+    </div>
+
+    <div id="html-area" class="flex flex-col">
+      <div
+        contenteditable="true"
+        id="htmleditor"
+        class="tiptap ProseMirror classiceditor"
+        @input="updateEditorContent"
+      >{{ htmlContent }}</div>
     </div>
 
 <!--     <div class="px-4 py-3 text-sm text-gray-700">
@@ -191,13 +197,14 @@
     <TiptapImageDialog v-if="showAddImageDialog" :show="showAddImageDialog" @close="closeImageDialog" @insert="insertImage" />
   </div>
 
-  <textarea v-model="htmlContent" @input="updateEditorContent"></textarea>
+
+<!--   <textarea v-model="htmlContent" @input="updateEditorContent"></textarea>
 
   <div v-if="htmlContent" class="html-output">
     <h3>HTML Output:</h3>
     <pre>{{ htmlContent }}</pre>
   </div>
-
+ -->
 </template>
 
 
@@ -353,8 +360,13 @@ export default {
     this.editor.destroy();
   },
   methods: {
+    decodeHtml(html){
+      const textArea = document.createElement('textarea');
+      textArea.innerHTML = html;
+      return textArea.value;
+    },
     updateEditorContent() {
-      // HTML içeriğini editor'e aktar
+      this.htmlContent = this.decodeHtml(event.target.innerHTML);
       this.editor.commands.setContent(this.htmlContent)
     },
     undo() {
@@ -396,11 +408,17 @@ export default {
       this.editor?.chain().focus().insertTable({rows: table.rows,cols: table.columns, withHeaderRow: table.withHeader }).run();
     },
     toggleHtmlMode() {
+      const editorArea = document.getElementById("editor-area");
+      const classicEditor = editorArea.querySelector(".tiptap");
+      const htmlEditor = document.getElementById("htmleditor");
       this.htmlMode = !this.htmlMode
-      console.error(this.htmlMode);
       if (this.htmlMode) {
-        this.htmlContent = this.editor.getHTML()
+        classicEditor.style.display = "none";
+        htmlEditor.style.display = "block";
+        // this.htmlContent = this.editor.getHTML()
       } else {
+        classicEditor.style.display = "block";
+        htmlEditor.style.display = "none";
         this.editor.commands.setContent(this.htmlContent)
       }
     },
@@ -410,4 +428,13 @@ export default {
 
 <style>
 @import "style.css";
+
+/* Tiptap ve HTML editörlerinin görünümünü düzenlemek için stil */
+.htmleditor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+  min-height: 100px;
+  overflow-y: auto;
+}
 </style>

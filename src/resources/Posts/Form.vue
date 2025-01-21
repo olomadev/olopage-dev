@@ -32,7 +32,7 @@
             :editable="editable"
             mode="json"
             :blockTools="blockTools"
-            :blockWidthTypes="['horizontalRule', 'blockquote', 'youtube']"
+            :blockWidthTypes="['horizontalRule', 'figure', 'blockquote', 'youtube']"
             @uploadedImage="uploadedImage"
             @deletedImage="deletedImage"
             @updateHtmlContent="setHtmlContent"

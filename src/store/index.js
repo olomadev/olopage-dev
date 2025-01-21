@@ -5,6 +5,7 @@ const store = defineStore('index', {
   state: () => {
     return { 
       locale: "en",
+      admin: null,
       modules: [],
       drawer: true,
       navbarKey: 0,
@@ -13,6 +14,9 @@ const store = defineStore('index', {
   getters: {
     getNavbarKey() {
       return this.navbarKey;
+    },
+    getAdmin() {
+      return this.admin;
     },
     getLocale() {
       return this.locale
@@ -35,6 +39,9 @@ const store = defineStore('index', {
   actions: {
     setNavbarKey() {
       this.navbarKey = this.navbarKey + 1;
+    },
+    setAdmin(admin) {
+      this.admin = admin;
     },
     setModule(storeName, useStore) {
       this.modules[storeName] = useStore();

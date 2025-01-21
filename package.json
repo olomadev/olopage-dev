@@ -26,6 +26,7 @@
     "@intlify/unplugin-vue-i18n": "^0.8.2",
     "@mdi/font": "7.4.47",
     "@tabler/icons-vue": "^3.28.1",
+    "@tinymce/tinymce-vue": "^6.1.0",
     "@tiptap/extension-blockquote": "^2.10.4",
     "@tiptap/extension-bubble-menu": "^2.10.4",
     "@tiptap/extension-bullet-list": "^2.11.2",
@@ -78,6 +79,7 @@
     "vue-router": "^4.2.5",
     "vue3-dropzone": "^2.2.1",
     "vuedraggable": "^4.1.0",
+    "vuetify-pro-tiptap": "^2.5.7",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
