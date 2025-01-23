@@ -162,7 +162,6 @@
       }
     },
     "posts": {
-      "actions": "Actions",
       "publish": "Publish",
       "preview": "Preview",
       "unpublish": "UnPublish",
@@ -195,6 +194,33 @@
         "authorId" : "Author",
         "categories" : "Categories",
         "tags" : "Tags",
+        "publishStatus" : "Status",
+        "createdAt" : "CreatedAt",
+        "Actions" : "Actions"
+      }
+    },
+    "pages": {
+      "publish": "Publish",
+      "preview": "Preview",
+      "unpublish": "UnPublish",
+      "keywords": "Keywords",
+      "description": "Description",
+      "published": "published",
+      "draft": "draft",
+      "pending": "pending",
+      "messages" : {
+        "pagePublished": "Your page published successfully",
+        "pageUnpublished": "Your page unpublished successfully",
+        "pageCreatedSuccessfully": "New page created sucessfully",
+        "pageUpdatedSuccessfully": "Page saved sucessfully",
+        "pageDeletedSuccessfully": "Page deleted sucessfully"
+      },
+      "fields": {
+        "q" : "Search",
+        "route" : "Route",
+        "title" : "Title",
+        "keywords" : "Keywords",
+        "description" : "Description",
         "publishStatus" : "Status",
         "createdAt" : "CreatedAt",
         "Actions" : "Actions"

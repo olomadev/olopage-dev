@@ -62,6 +62,9 @@ export default {
     provide('v$', vuelidate)
     return { v$: vuelidate }
   },
+  created() {
+    this.model.id = this.generateId(this);
+  },
   data() {
     return {
       rolePermissions: [],
@@ -152,9 +155,6 @@ export default {
         errors.push(this.$t("v.string.maxLength", { max: "2" }));
       return errors;
     },
-  },
-  created() {
-    this.model.id = this.generateId(this);
   }
 }
 </script>

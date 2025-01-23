@@ -4,6 +4,7 @@ import axios from 'axios';
 const store = defineStore('index', {
   state: () => {
     return { 
+      id: null,
       locale: "en",
       admin: null,
       modules: [],
@@ -14,6 +15,9 @@ const store = defineStore('index', {
   getters: {
     getNavbarKey() {
       return this.navbarKey;
+    },
+    getResourceId(id) {
+      return this.id;
     },
     getAdmin() {
       return this.admin;
@@ -39,6 +43,9 @@ const store = defineStore('index', {
   actions: {
     setNavbarKey() {
       this.navbarKey = this.navbarKey + 1;
+    },
+    setResourceId(id) {
+      this.id = id;
     },
     setAdmin(admin) {
       this.admin = admin;

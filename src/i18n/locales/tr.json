@@ -165,7 +165,6 @@
       }
     },
     "posts": {
-      "actions": "İşlemler",
       "publish": "Yayınla",
       "preview": "Ön izle",
       "unpublish": "Yayından kaldır",
@@ -202,6 +201,33 @@
         "Actions" : "İşlemler"
       }
     },
+    "pages": {
+      "publish": "Yayınla",
+      "preview": "Ön izle",
+      "unpublish": "Yayından kaldır",
+      "keywords": "Anahtarlar",
+      "description": "Açıklama",
+      "published": "yayınlandı",
+      "draft": "taslak",
+      "pending": "bekliyor",
+      "messages" : {
+        "pagePublished": "Sayfanız başarıyla yayına alındı",
+        "pageUnpublished": "Sayfanız başarıyla yayından kaldırıldı",
+        "pageCreatedSuccessfully": "Yeni sayfa başarıyla oluşturuldu",
+        "pageUpdatedSuccessfully": "Sayfa başarıyla kaydedildi",
+        "pageDeletedSuccessfully": "Sayfa başarıyla silindi"
+      },
+      "fields": {
+        "q" : "Ara",
+        "route" : "Rota",
+        "title" : "Başlık",
+        "keywords" : "Anahtarlar",
+        "description" : "Açıklama",
+        "publishStatus" : "Durum",
+        "createdAt" : "Oluşturulma",
+        "Actions" : "İşlemler"
+      }
+    },    
     "roles": {
       "rolePermissions" : "Rol Yetkilileri",
       "addPermissionButton" : "YETKİ EKLE",

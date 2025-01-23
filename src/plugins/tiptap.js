@@ -119,6 +119,7 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
             method: "POST", 
             url: "/files/create", 
             data: { 
+              pageId: store.getResourceId,
               fileId: generateUid(), 
               fileName: fileName,  
               fileType: file.type, 

@@ -59,34 +59,35 @@ import Utils from "olobase-admin/src/mixins/utils";
 export default {
   props: ["id", "item"],
   mixins: [Utils],
-  inheritAttrs: false,
   setup() {
     let vuelidate = useVuelidate();
     provide('v$', vuelidate)
     return { v$: vuelidate }
   },
-  validations: {
-    model: {
-      firstname: {
-        required,
-        minLength: minLength(2),
-      },
-      lastname: {
-        required,
-        minLength: minLength(2),
-        maxLength: maxLength(120),
-      },
-      userRoles: {
-        required,
-      },
-      email: {
-        required,
-        email,
-      },
-      password: {
-        minLength: minLength(8),
-        maxLength: maxLength(16),
-      },
+  validations() {
+    return {
+      model: {
+        firstname: {
+          required,
+          minLength: minLength(2),
+        },
+        lastname: {
+          required,
+          minLength: minLength(2),
+          maxLength: maxLength(120),
+        },
+        userRoles: {
+          required,
+        },
+        email: {
+          required,
+          email,
+        },
+        password: {
+          minLength: minLength(8),
+          maxLength: maxLength(16),
+        },
+      }
     }
   },
   data() {

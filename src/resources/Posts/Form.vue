@@ -3,7 +3,6 @@
     <v-col cols="12" md="8" lg="9" sm="12">
       <v-card :loading="loading" flat border height="100%" min-height="600" class="d-flex flex-column">
         <v-card-title class="mt-3 d-flex">
-          <v-alert v-if="message.top" density="compact"  class="alerts" :text="message.text" :type="message.type" :icon="false" variant="tonal" />
           <v-spacer />
           <v-menu>
             <template v-slot:activator="{ props }">
@@ -41,7 +40,6 @@
         <template #actions>
           <v-row class="d-flex">
             <v-col cols="6" class="pl-5">
-              <v-alert v-if="message.bottom" density="compact" max-height="30" class="alerts" :text="message.text" :type="message.type" :icon="false" variant="tonal" />
             </v-col>
             <v-col cols="6" class="pr-5" id="posts-permalink-url" align="right" justify="right" v-if="model.permalink">
               <a href="javascript:void(0)">{{ getFrontendBaseUrl }}/{{ model.permalink }}</a>
@@ -75,10 +73,15 @@
             </v-row>
             <v-row no-gutters class="mt-5" v-if="previewable">
               <v-col cols="6">
-                <va-date-input variant="filled" v-model="model.publishDate" source="publishDate" label="Published on" format="shortFormat" />
+                <va-date-input hide-details variant="filled" v-model="model.publishDate" source="publishDate" label="Published on" format="shortFormat" />
               </v-col>
               <v-col cols="6">
-                <va-text-input variant="filled" v-model="model.publishTime" source="publishTime" class="ml-5 maska" v-maska="'##:##'" />
+                <va-text-input hide-details variant="filled" v-model="model.publishTime" source="publishTime" class="ml-5 maska" v-maska="'##:##'" />
+              </v-col>
+            </v-row>
+            <v-row no-gutters style="height: 30px">
+              <v-col>
+                <v-alert v-if="message.show" density="compact"  class="alerts" :text="message.text" :type="message.type" :icon="false" variant="tonal" />
               </v-col>
             </v-row>
           </v-card-text>
@@ -217,7 +220,6 @@ export default {
       draftId: null,
       editable: true,
       expandCategories: true,
-      message: { show: false, type: "error", text: "" },
       previewable: false,
       showNewCategory: false,
       newCategoryKey: 0,

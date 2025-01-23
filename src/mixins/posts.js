@@ -9,6 +9,7 @@ import { getFrontendUrl, getApiUrl } from "@/utils"
 export default {
   data() {
     return {
+      message: { show: false, type: "error", text: "" },
       menuItems: [
         { title: 'Duplicate', value: 'duplicate', show: true },
         { title: 'Copy Link', value: 'copy-link', show: true },
@@ -93,33 +94,10 @@ export default {
   },
   methods: {
     showMessage(type, text) {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      let tolerance = this.smAndDown ? 500 : 0;
-      if (this.smAndDown) {
-        tolerance = 500
-      }
-      if (!this.smAndDown && scrollPosition == 0) {
-        tolerance = 0
-      } else {
-        tolerance = 100
-      }
-      // console.error("scrollPosition: " + scrollPosition)
-      // console.error("windowHeight: " + windowHeight)
-      // console.error("tolerance: " + tolerance)
-      // console.error("documentHeight: " + documentHeight)
-      let userIsAtBottom = false
-      if (Math.ceil(scrollPosition + windowHeight + tolerance) > documentHeight) {
-        userIsAtBottom = true
-      } else {
-        userIsAtBottom = false
-      }
       this.message.text = text;
       this.message.type = type;
-      this.message.top = userIsAtBottom ? false : true;
-      this.message.bottom = userIsAtBottom ? true : false;
-      setTimeout(() => { this.message.top = false; this.message.bottom = false; }, 3000);
+      this.message.show = true;
+      setTimeout(() => { this.message.show = false; }, 3000);
     },
     setPermalink(url) {
       if (Object.prototype.toString.call(url) === "[object String]") {
