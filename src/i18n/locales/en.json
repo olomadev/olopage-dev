@@ -177,8 +177,8 @@
       "draft": "draft",
       "pending": "pending",
       "messages" : {
-        "postPublished": "Your post published successfully",
-        "postUnpublished": "Your post unpublished successfully",
+        "postPublished": "Post published successfully",
+        "postUnpublished": "Post unpublished successfully",
         "postHeadingError" : "The first element of your page must be the heading and not left blank",
         "postEmptyContentError": "Your page content cannot be empty",
         "postCreatedSuccessfully": "New post created sucessfully",
@@ -209,8 +209,8 @@
       "draft": "draft",
       "pending": "pending",
       "messages" : {
-        "pagePublished": "Your page published successfully",
-        "pageUnpublished": "Your page unpublished successfully",
+        "pagePublished": "Page published successfully",
+        "pageUnpublished": "Page unpublished successfully",
         "pageCreatedSuccessfully": "New page created sucessfully",
         "pageUpdatedSuccessfully": "Page saved sucessfully",
         "pageDeletedSuccessfully": "Page deleted sucessfully"

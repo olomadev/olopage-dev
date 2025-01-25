@@ -3,7 +3,7 @@
  *
  * - plugins/tiptap.js
  * 
- * Framework: https://github.com/yikoyu/vuetify-pro-tiptap
+ * Plugin: https://github.com/yikoyu/vuetify-pro-tiptap
  */
 import 'vuetify-pro-tiptap/styles/editor.css'
 import 'vuetify-pro-tiptap/styles/markdown.css'
@@ -22,6 +22,8 @@ import { getApiUrl, generateUid } from "@/utils"
 import slugify from 'slugify';
 import { markRaw } from 'vue';
 import { VuetifyTiptap, VuetifyViewer, createVuetifyProTipTap, defaultBubbleList } from 'vuetify-pro-tiptap';
+
+import Image from "@/extensions/image";
 import {  
   BaseKit,
   Bold,
@@ -40,7 +42,6 @@ import {
   TaskList,
   Indent,
   Link,
-  Image,
   Video,
   Table,
   Blockquote,
@@ -124,7 +125,8 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
               fileName: fileName,  
               fileType: file.type, 
               fileSize: (file.size / 1024).toFixed(2), 
-              fileData: base64
+              fileData: base64,
+              thumb: false,
             },
           }
         );
@@ -133,7 +135,6 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
           url = getApiUrl("/files/display?fileName=" + res?.data?.data.original.fileName);
         }
         return url;
-        // return Promise.resolve(url);
       }
     }),
     Video,

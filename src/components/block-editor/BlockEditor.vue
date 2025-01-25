@@ -852,7 +852,15 @@ export default {
         { 
           method: "POST", 
           url: "/files/create", 
-          data: { postId: this.postId, fileId: generateUid(), fileName: fileName,  fileType: file.type, fileSize: (file.size / 1024).toFixed(2), fileData: base64},
+          data: { 
+            postId: this.postId,
+            fileId: generateUid(),
+            fileName: fileName,
+            fileType: file.type,
+            fileSize: (file.size / 1024).toFixed(2),
+            fileData: base64,
+            thumb: true
+          },
         }
       );
       if (res && res.status === 200 && res?.data?.data['original']) {

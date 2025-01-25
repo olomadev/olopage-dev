@@ -109,7 +109,6 @@ export default {
       menuItems: [
         { title: 'Preview', value: 'preview', show: true },
         { title: 'Duplicate', value: 'duplicate', show: true },
-        { title: 'Delete', value: 'delete', show: true },
       ],
       filters: [],
       fields: [

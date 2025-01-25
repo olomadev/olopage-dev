@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="mb-2 blockeditor-form">    
+  <v-row id="post-wrapper" no-gutters class="mb-2 blockeditor-form">
     <v-col cols="12" md="8" lg="9" sm="12">
       <v-card :loading="loading" flat border height="100%" min-height="600" class="d-flex flex-column">
         <v-card-title class="mt-3 d-flex">
@@ -39,9 +39,7 @@
         </v-card-text>
         <template #actions>
           <v-row class="d-flex">
-            <v-col cols="6" class="pl-5">
-            </v-col>
-            <v-col cols="6" class="pr-5" id="posts-permalink-url" align="right" justify="right" v-if="model.permalink">
+            <v-col cols="12" class="pr-5" id="posts-permalink-url" align="center" justify="center" v-if="model.permalink">
               <a href="javascript:void(0)">{{ getFrontendBaseUrl }}/{{ model.permalink }}</a>
             </v-col>
           </v-row>
@@ -172,9 +170,11 @@ import BlockEditor from '@/components/block-editor/BlockEditor.vue';
 import Utils from 'olobase-admin/src/mixins/utils';
 import { vMaska } from 'maska/vue';
 import Posts from "@/mixins/posts";
-import { formatDate, blockTools } from "@/utils";
+import { formatDate, blockTools, getFrontendUrl, getScreenshotPreviewUrl } from "@/utils";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import cookies from "olobase-admin/src/utils/cookies";
+const cookieKey = JSON.parse(import.meta.env.VITE_COOKIE);
 
 export default {
   props: ['id', 'item'],
@@ -352,6 +352,9 @@ export default {
           this.model.permalink = res?.data?.data['permalink'] ? res?.data?.data['permalink'] : this.model.permalink;
           this.showMessage("success", this.$t("resources.posts.messages.postUpdatedSuccessfully"))
         }
+        if (this.previewable) {
+          this.takeScreenshot() // take screenshot of the post
+        }
       } catch (error) {
         console.error("Update error:", error);
       }
@@ -388,6 +391,14 @@ export default {
       }
       this.model.featuredImageId = null;
       ++this.featuredImageKey;
+    },
+    takeScreenshot() {
+      const token = cookies.get(cookieKey.token);
+      const apiKey = import.meta.env.VITE_SCREENSHOT_API_KEY;
+      const screenshotPreviewUrl = getScreenshotPreviewUrl(this.model.permalink);
+      const postId = this.model.id;
+      const screenshotUrl = getFrontendUrl(`/screenshot?url=${screenshotPreviewUrl}&type=post&apiKey=${apiKey}&id=${postId}`);  
+      fetch(screenshotUrl).catch(error => console.error('Error:', error));
     }
   },
 };

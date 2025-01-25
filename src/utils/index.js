@@ -1,3 +1,4 @@
+import { differenceBy, isEqual, throttle } from 'lodash-unified';
 /**
  * Php date function
  * 
@@ -34,7 +35,6 @@ export const formatDate = function (format, timestamp = new Date(), locale = "en
   };
   return format.replace(/F|j|Y|YY|m|d|g|H|i|s|a|w|W|l|D/g, match => map[match] || match);
 };
-
 /**
  * Generate uuid
  */
@@ -79,6 +79,19 @@ export const getFrontendUrl = function(suffix) {
   return baseUrl.replace(/^\/+|\/+$/g, "")
 }
 /**
+ * Returns to dev url of frontent app
+ */
+export const getScreenshotPreviewUrl = function(suffix) {
+  let baseUrl = import.meta.env.VITE_FRONTEND_URL
+  if (import.meta.env.DEV) {
+    baseUrl = import.meta.env.VITE_FRONTEND_DEV_URL  
+  }
+  if (suffix) {
+    return baseUrl.replace(/^\/+|\/+$/g, "") + "/" + suffix.replace(/^\/+|\/+$/g, "")  
+  }
+  return baseUrl.replace(/^\/+|\/+$/g, "")
+}
+/**
  * Block editor default blocktools
  */
 export const blockTools = function() {
@@ -108,3 +121,82 @@ export const blockTools = function() {
     },
   ]
 }
+/**
+ * Clamps a number between a minimum and a maximum value.
+ * @param {number} val - The value to clamp.
+ * @param {number} min - The minimum value.
+ * @param {number} max - The maximum value.
+ * @returns {number} - The clamped value.
+ */
+export function clamp(val, min, max) {
+  if (val < min) return min;
+  if (val > max) return max;
+  return val;
+}
+
+/**
+ * Checks if a value is a number.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is a number, otherwise false.
+ */
+export const isNumber = value => typeof value === 'number';
+
+/**
+ * Checks if a value is a string.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is a string, otherwise false.
+ */
+export const isString = value => typeof value === 'string';
+
+/**
+ * Checks if a value is a boolean.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is a boolean, otherwise false.
+ */
+export const isBoolean = value => typeof value === 'boolean';
+
+/**
+ * Checks if a value is a function.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is a function, otherwise false.
+ */
+export const isFunction = value => typeof value === 'function';
+
+/**
+ * Returns a CSS unit with a default value if no unit is specified.
+ * @param {string|number} value - The value to parse.
+ * @param {string} [defaultUnit='px'] - The default unit to use.
+ * @returns {string|number} - The value with the appropriate unit.
+ */
+export const getCssUnitWithDefault = (value, defaultUnit = 'px') => {
+  if (!value) return value;
+
+  const stringValue = isNumber(value) ? String(value) : value;
+
+  const num = Number.parseFloat(stringValue);
+  const unitMatch = stringValue.match(/[a-zA-Z%]+$/);
+  const unit = unitMatch ? unitMatch[0] : defaultUnit;
+
+  return Number.isNaN(num) ? value : num + unit;
+};
+
+/**
+ * Checks if the editor has a specific extension method with the given name.
+ * @param {Object} editor - An instance of the editor.
+ * @param {string} name - The name of the extension method.
+ * @returns {boolean} - Returns true if the specified extension method is present, otherwise false.
+ */
+export function hasExtension(editor, name) {
+  // Retrieve the extension manager of the editor, defaulting to an empty array if it doesn't exist
+  const { extensions = [] } = editor.extensionManager || {};
+
+  // Check if the extension method with the specified name is present in the extension manager
+  const find = extensions.find(i => i.name === name);
+
+  // Return false if the extension method with the specified name is not found, otherwise true
+  return !!find;
+}
+
+export { differenceBy, isEqual, throttle };
+
+

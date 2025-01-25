@@ -39,9 +39,17 @@
                 </v-col>
               </v-row>
 
-              <v-row no-gutters class="mb-5" v-if="previewable">
+              <v-row no-gutters class="mb-2" v-if="previewable">
                 <v-col cols="12">
                   <v-btn block flat prepend-icon="mdi-eye-outline">{{ $t('resources.posts.preview') }}</v-btn>
+                </v-col>
+              </v-row>
+
+              <v-row no-gutters class="mb-5">
+                <v-col cols="12">
+                  <v-btn ref="saveButton" block flat prepend-icon="mdi-content-save" color="secondary" @click.stop="save">
+                    {{ $t('va.actions.save') }}
+                  </v-btn>
                 </v-col>
               </v-row>
 
@@ -78,14 +86,6 @@
                     source="description"
                     multiline
                   ></va-text-input>               
-                </v-col>
-              </v-row>
-
-              <v-row no-gutters class="mb-2">
-                <v-col cols="12">
-                  <v-btn ref="saveButton" block flat prepend-icon="mdi-content-save" color="secondary" @click.stop="save">
-                    {{ $t('va.actions.save') }}
-                  </v-btn>
                 </v-col>
               </v-row>
 
@@ -138,11 +138,9 @@ export default {
       },
     }
   },
-  // watch: {
-  //   "model.contentJson"(val) {
-  //     console.error(val)
-  //   }
-  // },
+  watch: {
+
+  },
   data() {
     return {
       editor: null,
@@ -174,31 +172,25 @@ export default {
     this.model.id = this.generateId(this);
     const store = useStore()
     store.setResourceId(this.model.id); // set id for tiptap image process
-    // console.error(this.item);
-
-    // fill page images
-    // await this.$admin.http({ method: "GET", url: `/pages/findOneById/${this.model.id}` }).then(function(res) {
-    // if (res 
-    //     && res?.data?.data?.publishedAt 
-    //     && res.data.data.publishedAt
-    //     && typeof res.data.data.publishedAt === "string") {
-    //     const [datePart, timePart] = res.data.data.publishedAt.split(' ');
-    //     Self.model.publishedAt = res.data.data.publishedAt;
-    //     Self.model.publishedDate = datePart;
-    //     Self.model.publishedTime = timePart;  
-    // }
-
+    this.previewable = this.$router.currentRoute.value.path === "/pages/create" ? false : true;
+    if (this.item) {
+      this.fileNames = this.item.pageFiles; // set page files
+    }
   },
   mounted() {
     if (this.item) {
       this.model.contentJson = this.item.contentJson;
       this.model.contentHtml = this.item.contentHtml;
+      this.model.publishStatus = this.item.publishStatus;
       ++this.editorKey;
     }
   },
   methods: {
     onChange({ editor, output }) {
       this.editor = editor;
+      //
+      // detect images
+      //
       const json = editor.getJSON();
       if (json['content'] && Array.isArray(json.content)) {
         json.content.forEach(row => {
@@ -218,7 +210,7 @@ export default {
         });
       }
       //
-      // delete operations
+      // execute delete operation for found files
       //
       let foundImages = []
       json.content.forEach(row => {
@@ -236,14 +228,20 @@ export default {
       });
       this.fileNames.forEach(name => {
         if (! foundImages.includes(name)) {
-          console.error("Delete images request for: " + name);
-
-          
-          foundImages = []; // reset delete image storage
-          const index = this.fileNames.indexOf(name); // delete image from fileNames
-          if (index > -1) {
-            this.fileNames.splice(index, 1);
-          }
+          this.$admin.http({ method: "DELETE", url: "/files/delete", params: { pageId: this.model.id, fileName: name }}).then(res => {
+            if (res && res.status == 200) { // reset
+              foundImages = []; // reset delete image storage
+              const index = this.fileNames.indexOf(name); // delete image from fileNames
+              if (index > -1) {
+                this.fileNames.splice(index, 1);
+              }
+              // save content
+              const saveButton = this.$refs?.saveButton?.$el;
+              if (saveButton) {
+                saveButton.click();
+              }
+            }  
+          });
         }
       });
     },

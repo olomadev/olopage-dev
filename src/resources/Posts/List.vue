@@ -23,7 +23,7 @@
               class="mb-3 custom-column"
             >
               <v-card :loading="$store.getModule('api').getLoading" flat rounded class="card-wrapper hover-card">
-                <v-card-title class="d-flex">
+                <v-card-title class="d-flex" style="padding-bottom: 20px;">
                   <v-spacer class="custom-font-size">{{ getCreationDate(item.raw.createdAt) }}</v-spacer>
                    <v-chip
                     label
@@ -58,13 +58,14 @@
                 </v-card-title>
                 <router-link :to="{ name: 'posts_edit', params: { id: item.raw.id } }">
                   <v-img
-                    src="https://example.com/image.jpg"
+                    :src="getScreenshotImage(item.raw.id)"
                     class="align-end"
-                    height="220px"
+                    width="200px"
+                    height="180px"
                     cover
                   >
-                    <v-card-subtitle class="mb-5" v-text="item.raw.title"></v-card-subtitle>
                   </v-img>
+                  <v-card-subtitle  class="mb-5" v-text="item.raw.title"></v-card-subtitle>
                 </router-link>
               </v-card>
             </v-col>
@@ -97,6 +98,7 @@ import { useDisplay } from 'vuetify';
 import { formatDate } from "@/utils";
 import config from "@/_config";
 import Trans from "@/i18n/translation";
+import { getApiUrl } from "@/utils"
 
 export default {
   props: ["resource", "title"],
@@ -151,6 +153,10 @@ export default {
     },
   },
   methods: {
+    getScreenshotImage(postId) {
+      const imgSrc = getApiUrl('/screenshots/display/' + postId)
+      return imgSrc
+    },
     getCreationDate(date) {
       const formattedDate = formatDate("F j, Y, g:i a", date, Trans.currentLocale)
       return formattedDate

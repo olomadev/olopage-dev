@@ -179,15 +179,15 @@
       "draft": "taslak",
       "pending": "bekliyor",
       "messages" : {
-        "postPublished": "Gönderiniz başarıyla yayına alındı",
-        "postUnpublished": "Gönderiniz başarıyla yayından kaldırıldı",
+        "postPublished": "Gönderi yayına alındı",
+        "postUnpublished": "Gönderi yayından kaldırıldı",
         "postHeadingError" : "Sayfanızın ilk öğesi başlık olmalı ve boş bırakılmamalıdır",
         "postEmptyContentError": "Sayfa içeriğiniz boş olamaz",
-        "postCretedSuccessfully": "Yeni gönderi başarıyla oluşturuldu",
+        "postCretedSuccessfully": "Yeni gönderi oluşturuldu",
         "postUpdatedSuccessfully": "Gönderi başarıyla kaydedildi",
         "postDeletedSuccessfully": "Gönderi başarıyla silindi",
-        "postUrlCopiedSuccessfully": "Gönderi URL'si panonuza başarıyla kopyalandı",
-        "newCategoryCreatedSuccessfully": "Yeni kategori başarıyla oluşturuldu"
+        "postUrlCopiedSuccessfully": "Gönderi URL'si panonuza kopyalandı",
+        "newCategoryCreatedSuccessfully": "Yeni kategori oluşturuldu"
       },
       "fields": {
         "q" : "Ara",
@@ -211,9 +211,9 @@
       "draft": "taslak",
       "pending": "bekliyor",
       "messages" : {
-        "pagePublished": "Sayfanız başarıyla yayına alındı",
-        "pageUnpublished": "Sayfanız başarıyla yayından kaldırıldı",
-        "pageCreatedSuccessfully": "Yeni sayfa başarıyla oluşturuldu",
+        "pagePublished": "Sayfa yayına alındı",
+        "pageUnpublished": "Sayfa yayından kaldırıldı",
+        "pageCreatedSuccessfully": "Yeni sayfa oluşturuldu",
         "pageUpdatedSuccessfully": "Sayfa başarıyla kaydedildi",
         "pageDeletedSuccessfully": "Sayfa başarıyla silindi"
       },

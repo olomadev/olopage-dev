@@ -63,6 +63,7 @@
     "event-source-polyfill": "^1.0.31",
     "js-cookie": "^3.0.5",
     "lodash": "4.17.21",
+    "lodash-unified": "^1.0.3",
     "maska": "^3.0.4",
     "parse-domain": "^8.0.1",
     "pinia": "^2.1.7",
