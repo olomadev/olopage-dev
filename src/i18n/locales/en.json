@@ -136,18 +136,45 @@
       }
     },
   },
-  "classiceditor": {
-    "addLink": "Add Link",
-    "linkUrl": "Link URL",
-    "addTable": "Add Table",
-    "addYoutubeVideo": "Add Video Youtube",
-    "youtubeVideoUrl": "Youtube URL",
-    "tableRow": "Row",
-    "tableColumn": "Column",
-    "tableHeader": "Header",
-    "imageDropText": "Drop the files here ...",
-    "imageUploadText": "Drag 'n' drop some image file here, or click to select file",
-    "selectedImage": "Selected Image"
+  "editor": {
+    "image": {
+      "dialog": {
+        "title": "Insert Image",
+        "tab": {
+          "url" :"Url",
+          "upload" :"Upload"
+        },
+        "form" : {
+          "link": "Link",
+          "alt": "Text",
+          "file": "File",
+          "aspectRatio": "Keep aspect ratio"
+        },
+        "button": {
+          "apply": "Apply"
+        }
+      }
+    },
+    "link": {
+      "dialog" : {
+        "title" : "Insert Link",
+        "link" : "Link",
+        "rel" : "Rel",
+        "openInNewTab": "Open in New Window",
+        "button": {
+          "apply": "Apply"
+        }
+      },
+    },
+    "video": {
+      "dialog": {
+        "title": "Insert Video",
+        "link" : "Link",
+        "button": {
+          "apply": "Apply"
+        }
+      }
+    },
   },
   "resources": {
     "swagger": {

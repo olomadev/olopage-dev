@@ -95,7 +95,7 @@
   "menu": {
     "home": "Anasayfa",
     "posts": "Yazılar",
-    "pages": "Pages",
+    "pages": "Sayfalar",
     "categories": "Kategoriler",
     "roles": "Roller",
     "users": "Kullanıcılar",
@@ -139,18 +139,15 @@
       }
     },
   },
-  "classiceditor": {
-    "addLink": "Bağlantı Ekle",
-    "linkUrl": "Bağlantı URL",
-    "addTable": "Tablo Ekle",
-    "addYoutubeVideo": "Video Ekle - Youtube",
-    "youtubeVideoUrl": "Youtube URL",
-    "tableRow": "Satır",
-    "tableColumn": "Sütun",
-    "tableHeader": "Başlık",
-    "imageDropText": "Dosyaları buraya bırakın...",
-    "imageUploadText": "Buraya bir resim dosyası sürükleyip bırakın veya dosyayı seçmek için tıklayın",
-    "selectedImage": "Seçili Resim"
+  "editor": {
+    "image": {
+      "dialog": {
+        "title": "Resim ekle",
+        "button": {
+          "apply": "Uygula"
+        }
+      }
+    }
   },
   "resources": {
     "swagger": {

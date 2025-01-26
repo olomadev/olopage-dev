@@ -139,7 +139,12 @@ export default {
     }
   },
   watch: {
-
+    "$store.getApplyImageEvent"(val) {
+      if (val) {
+        this.saveContent();
+        this.$store.applyImageEvent(false); // reset event variable
+      }
+    }
   },
   data() {
     return {
@@ -153,7 +158,6 @@ export default {
       VuetifyTiptapRef: null,
       output: null,
       markdownTheme: null,
-      editHtml: false,
       errorMessages: null,
       maxWidth: 900,
       model: {
@@ -215,35 +219,37 @@ export default {
       let foundImages = []
       json.content.forEach(row => {
         if (row?.content && row.content[0]) {
-          const item = row.content[0];
-          if (item?.attrs?.src) {
-            const src = item.attrs.src;
-            const urlParams = new URLSearchParams(src.split('?')[1]);
-            const fileName = urlParams.get('fileName');
-            if (fileName) {
-              foundImages.push(fileName);
+          row.content.forEach(item => {
+            if (item?.attrs?.src) {
+              const src = item.attrs.src;
+              const urlParams = new URLSearchParams(src.split('?')[1]);
+              const fileName = urlParams.get('fileName');
+              if (fileName) {
+                foundImages.push(fileName);
+              }
             }
-          }
+          })
         }
       });
+      // console.error("Found Images:");
+      // console.error(foundImages);
+      // console.error("Filenames:");
+      // console.error(this.fileNames);
+
       this.fileNames.forEach(name => {
         if (! foundImages.includes(name)) {
           this.$admin.http({ method: "DELETE", url: "/files/delete", params: { pageId: this.model.id, fileName: name }}).then(res => {
             if (res && res.status == 200) { // reset
-              foundImages = []; // reset delete image storage
               const index = this.fileNames.indexOf(name); // delete image from fileNames
               if (index > -1) {
                 this.fileNames.splice(index, 1);
               }
-              // save content
-              const saveButton = this.$refs?.saveButton?.$el;
-              if (saveButton) {
-                saveButton.click();
-              }
+              this.saveContent();
             }  
           });
         }
       });
+      foundImages = []; // reset delete image storage
     },
     async save() {
       this.v$.$touch();
@@ -296,6 +302,12 @@ export default {
         console.error("Update error:", error);
       }
     },
+    saveContent() {
+      const saveButton = this.$refs?.saveButton?.$el;
+      if (saveButton) {
+        saveButton.click();
+      }
+    }
   },
   computed: {
     routeErrors() {

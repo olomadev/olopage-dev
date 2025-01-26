@@ -10,9 +10,13 @@ const store = defineStore('index', {
       modules: [],
       drawer: true,
       navbarKey: 0,
+      applyImage: false,
     }
   },
   getters: {
+    getApplyImageEvent() {
+      return this.applyImage;
+    },
     getNavbarKey() {
       return this.navbarKey;
     },
@@ -41,6 +45,9 @@ const store = defineStore('index', {
     },
   },
   actions: {
+    applyImageEvent(bool) {
+      this.applyImage = bool;
+    },
     setNavbarKey() {
       this.navbarKey = this.navbarKey + 1;
     },

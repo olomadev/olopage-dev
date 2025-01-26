@@ -22,8 +22,10 @@ import { getApiUrl, generateUid } from "@/utils"
 import slugify from 'slugify';
 import { markRaw } from 'vue';
 import { VuetifyTiptap, VuetifyViewer, createVuetifyProTipTap, defaultBubbleList } from 'vuetify-pro-tiptap';
+import Link from "@/extensions/classic-editor/link";
+import Image from "@/extensions/classic-editor/image";
+import Video from "@/extensions/classic-editor/video";
 
-import Image from "@/extensions/image";
 import {  
   BaseKit,
   Bold,
@@ -41,8 +43,6 @@ import {
   OrderedList,
   TaskList,
   Indent,
-  Link,
-  Video,
   Table,
   Blockquote,
   HorizontalRule,
@@ -96,7 +96,7 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
     OrderedList,
     TaskList,
     Indent.configure({ divider: true }),
-    Link,
+    Link.configure({ divider: true }),
     Image.configure({
       // Generate a VDivider after the button
       divider: true,

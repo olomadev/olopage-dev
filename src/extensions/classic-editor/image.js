@@ -82,7 +82,7 @@ export const Image = TiptapImage.extend({
             hiddenTabs,
             isActive: () => editor.isActive('image') || false,
             disabled: !editor.can().setImage({}),
-            icon: 'image',
+            icon: "mdi-image-plus",
             tooltip: t('editor.image.tooltip'),
           },
           componentSlots: {

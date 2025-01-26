@@ -1,7 +1,7 @@
 <template>
   <v-btn
     class="rounded me-1 ms-0"
-    density="compact"
+    density="comfortable"
     size="small"
     :disabled="disabled"
     :color="color"
@@ -11,17 +11,14 @@
     }"
     @click="action"
   >
-    <v-icon icon="mdi-image-plus"></v-icon>
+    <v-icon :icon="icon"></v-icon>
     <v-tooltip :eager="false" activator="parent" location="top" :text="tooltip"></v-tooltip>
     <slot></slot>
   </v-btn>
 </template>
 
 <script>
-import { computed } from 'vue';
-
 export default {
-  name: 'ButtonComponent', // Gerekirse component adını belirleyin
   props: {
     icon: {
       type: String,

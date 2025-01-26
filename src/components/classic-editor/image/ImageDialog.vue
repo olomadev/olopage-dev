@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="dialog" max-width="400" activator="parent" @click:outside="close">
     <v-card>
-      <v-toolbar class="px-6" density="compact">
+      <v-toolbar class="pl-5 pr-2" density="compact">
         <span class="headline">{{ $t('editor.image.dialog.title') }}</span>
         <v-spacer />
         <v-btn class="mx-0" icon @click="close">
-          <v-icon>mdi-close</v-icon>
+          <v-icon icon="mdi-close"></v-icon>
         </v-btn>
       </v-toolbar>
 
@@ -18,7 +18,7 @@
       <v-card-text>
         <v-window v-model="tab">
           <v-window-item v-for="(imageTab, i) in defaultImageTabs" :key="i" :value="i">
-            <component :is="imageTab.component" v-model="form" :upload="upload" :t="$t" />
+            <component class="pt-5" :is="imageTab.component" v-model="form" :upload="upload" />
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -35,6 +35,7 @@
 <script>
 import ImageUpload from './ImageUpload.vue';
 import ImageUrl from './ImageUrl.vue';
+import useStore from '@/store';
 
 export default {
   components: {
@@ -115,6 +116,7 @@ export default {
         })
         .run();
 
+      useStore().applyImageEvent(true)
       this.close();
     },
     close() {

@@ -15,7 +15,6 @@
 import ActionButton from './ActionButton.vue';
 
 export default {
-  name: 'ComponentName', // Gerekirse component adını belirleyin
   components: {
     ActionButton,
   },
@@ -38,7 +37,7 @@ export default {
     },
     icon: {
       type: String,
-      default: undefined,
+      default: "mdi-image-plus",
     },
     tooltip: {
       type: String,
