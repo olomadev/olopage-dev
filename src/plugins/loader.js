@@ -12,6 +12,11 @@ import UnsavedFormDialog from "../components/UnsavedFormDialog";
 import camelCase from "lodash/camelCase";
 import upperFirst from "lodash/upperFirst";
 /**
+ * Classic editor global components
+ */
+// import VuetifyTiptap from '../components/classic-editor/VuetifyTiptap.vue';
+// import VuetifyViewer from '../components/classic-editor/VuetifyViewer.vue';
+/**
  * Autoload resources
  */
 const resources = import.meta.glob('@/resources/*/*.vue', { eager: true })
@@ -38,6 +43,11 @@ export default {
      */
     app.component("VAutocomplete", VAutocomplete);
     app.component("VCombobox", VCombobox);
+    /**
+     * Classic editor global components
+     */
+    // app.component('VuetifyTiptap', VuetifyTiptap);
+    // app.component('VuetifyViewer', VuetifyViewer);
     /**
      * Register application resources automatically
      */

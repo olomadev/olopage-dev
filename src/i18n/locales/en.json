@@ -137,7 +137,83 @@
     },
   },
   "editor": {
+    "placeholder": "Enter you content here...",
+    "remove": "Remove",
+    "words": "Words",
+    "characters": "Characters",
+    "default": "default",
+    "size": {
+      "small": { "tooltip": "Small" },
+      "medium": { "tooltip": "Medium" },
+      "large": { "tooltip": "Cover" }
+    },
+    "bold": { "tooltip": "Bold" },
+    "italic": { "tooltip": "Italic" },
+    "underline": { "tooltip": "Underline" },
+    "strike": { "tooltip": "Strike" },
+    "color": { "tooltip": "Color" },
+    "highlight": { "tooltip": "Highlight" },
+    "heading": {
+      "tooltip": "Headings",
+      "h1": { "tooltip": "Heading 1" },
+      "h2": { "tooltip": "Heading 2" },
+      "h3": { "tooltip": "Heading 3" },
+      "h4": { "tooltip": "Heading 4" },
+      "h5": { "tooltip": "Heading 5" },
+      "h6": { "tooltip": "Heading 6" }
+    },
+    "paragraph": { "tooltip": "Paragraph" },
+    "textalign": {
+      "tooltip": "Align",
+      "left": { "tooltip": "Left" },
+      "center": { "tooltip": "Center" },
+      "right": { "tooltip": "Right" },
+      "justify": { "tooltip": "Justify" }
+    },
+    "fontFamily": { "tooltip": "Font family" },
+    "fontSize": { "tooltip": "Font size" },
+    "superscript": { "tooltip": "Superscript" },
+    "subscript": { "tooltip": "Subscript" },
+    "bulletlist": { "tooltip": "Bullet List" },
+    "orderedlist": { "tooltip": "Ordered List" },
+    "tasklist": { "tooltip": "Task List" },
+    "indent": { "tooltip": "Indent" },
+    "outdent": { "tooltip": "Outdent" },
+    "markdownTheme": { "tooltip": "Theme" },
+    "table": {
+      "tooltip": "Table",
+      "menu": {
+        "insert_table": { "with_header_row": "With header row" },
+        "add_column_before": "Add Column Before",
+        "add_column_after": "Add Column After",
+        "delete_column": "Delete Column",
+        "add_row_before": "Add Row Before",
+        "add_row_after": "Add Row After",
+        "delete_row": "Delete Row",
+        "merge_or_split_cells": "Merge Or Split Cells",
+        "delete_table": "Delete Table"
+      }
+    },
+    "blockquote": { "tooltip": "Blockquote" },
+    "horizontalrule": { "tooltip": "Horizontal Rule" },
+    "code": { "tooltip": "Code" },
+    "codeblock": { "tooltip": "Code Block" },
+    "clear": { "tooltip": "Clear Format" },
+    "undo": { "tooltip": "Undo" },
+    "redo": { "tooltip": "Redo" },
+    "fullscreen": {
+      "tooltip": {
+        "fullscreen": "Fullscreen",
+        "exit": "Fullscreen Exit"
+      }
+    },
     "image": {
+      "tooltip": "Image",
+      "float": {
+        "left": { "tooltip": "Float left" },
+        "none": { "tooltip": "Float none" },
+        "right": { "tooltip": "Float right" }
+      },
       "dialog": {
         "title": "Insert Image",
         "tab": {
@@ -156,17 +232,24 @@
       }
     },
     "link": {
+      "tooltip": "Link",
+      "unlink": { "tooltip": "Unlink" },
+      "open": "Open link",
       "dialog" : {
         "title" : "Insert Link",
         "link" : "Link",
         "rel" : "Rel",
         "openInNewTab": "Open in New Window",
+        "messages": {
+          "invalidUrl": "The URL address you are entering is not valid"
+        },
         "button": {
           "apply": "Apply"
         }
       },
     },
     "video": {
+      "tooltip": "Video",
       "dialog": {
         "title": "Insert Video",
         "link" : "Link",
@@ -174,7 +257,7 @@
           "apply": "Apply"
         }
       }
-    },
+    }
   },
   "resources": {
     "swagger": {

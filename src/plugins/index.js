@@ -59,7 +59,9 @@ export function registerPlugins(app) {
   app.config.globalProperties.$store = store;
   app.config.globalProperties.$vuetify = vuetify;
   admin.install(app, store, axios, resources);
-
+  //
+  // install classic editor
+  // 
   app.use(vuetifyProTipTap);
   //
   // Router must be defined at the bottom !!

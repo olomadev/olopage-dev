@@ -1,7 +1,7 @@
 MIT License
 
 Copyright (c) 2025 oloma.dev
-Copyright (c) 2023-2024 John Puddephatt
+Copyright (c) 2021-2025 yikoyu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

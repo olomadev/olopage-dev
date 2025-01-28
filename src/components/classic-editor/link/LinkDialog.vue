@@ -51,8 +51,9 @@
 </template>
 
 <script>
+import { isValidURL } from '@/utils';
+
 export default {
-  name: 'LinkDialog',
   props: {
     value: {
       type: String,
@@ -99,6 +100,11 @@ export default {
     },
     apply() {
       const { href, target, rel } = this.attrs;
+      // URL validation
+      if (!isValidURL(href)) {
+        alert(this.$t('editor.link.dialog.messages.invalidUrl'));
+        return;
+      }
       if (href) {
         this.editor.chain().focus().extendMarkRange('link').setLink({ href, target, rel }).run();
       }

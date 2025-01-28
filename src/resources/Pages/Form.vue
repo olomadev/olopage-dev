@@ -9,6 +9,10 @@
                   Custom Upload
                   https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
                 -->
+         <!-- 
+                  Custom Upload
+                  https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
+                -->
                 <VuetifyTiptap
                   :key="editorKey"
                   ref="VuetifyTiptapRef"
@@ -22,6 +26,19 @@
                   :max-width="maxWidth"
                   @change="onChange"
                 />
+<!--                 <ClassicEditor 
+                  :key="editorKey"
+                  v-model="model.contentJson"
+                  v-model:markdown-theme="markdownTheme"
+                  output="json"
+                  :outlined="true"
+                  :error-messages="errorMessages"
+                  rounded
+                  :min-height="600"
+                  :max-width="maxWidth"
+                  @change="onChange"
+                >
+                </ClassicEditor> -->
               </v-col>
             </v-row>
         </v-card>
@@ -109,13 +126,14 @@ import { required, email, minLength, maxLength } from "@vuelidate/validators";
 import Utils from "olobase-admin/src/mixins/utils";
 import useStore from "@/store";
 import Pages from "@/mixins/pages";
+// import ClassicEditor from '@/components/classic-editor/ClassicEditor.vue';
 
 export default {
   props: ["id", "item"],
   mixins: [Utils, Pages],
-  components: {
-    
-  },
+  // components: {
+  //   ClassicEditor
+  // },
   setup() {
     let vuelidate = useVuelidate();
     const { smAndDown } = useDisplay();
@@ -256,6 +274,7 @@ export default {
       if (this.v$.$invalid) {
         return false;
       }    
+      // this.model.contentHtml = this.editor.getHTML()
       this.model.contentHtml = this.$refs.VuetifyTiptapRef.editor.getHTML()
       const Self = this;
       this.loading = "primary";

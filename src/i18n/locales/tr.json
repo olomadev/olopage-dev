@@ -140,9 +140,122 @@
     },
   },
   "editor": {
+    "placeholder": "İçeriğinizi buraya girin...",
+    "remove": "Kaldır",
+    "words": "Kelimeler",
+    "characters": "Karakterler",
+    "default": "varsayılan",
+    "size": {
+      "small": { "tooltip": "Küçük" },
+      "medium": { "tooltip": "Orta" },
+      "large": { "tooltip": "Kapla" }
+    },
+    "bold": { "tooltip": "Kalın" },
+    "italic": { "tooltip": "İtalik" },
+    "underline": { "tooltip": "Altı Çizili" },
+    "strike": { "tooltip": "Üstü Çizili" },
+    "color": { "tooltip": "Renk" },
+    "highlight": { "tooltip": "Vurgu" },
+    "heading": {
+      "tooltip": "Başlıklar",
+      "h1": { "tooltip": "Başlık 1" },
+      "h2": { "tooltip": "Başlık 2" },
+      "h3": { "tooltip": "Başlık 3" },
+      "h4": { "tooltip": "Başlık 4" },
+      "h5": { "tooltip": "Başlık 5" },
+      "h6": { "tooltip": "Başlık 6" }
+    },
+    "paragraph": { "tooltip": "Paragraf" },
+    "textalign": {
+      "tooltip": "Hizala",
+      "left": { "tooltip": "Sola Hizala" },
+      "center": { "tooltip": "Ortala" },
+      "right": { "tooltip": "Sağa Hizala" },
+      "justify": { "tooltip": "Yasla" }
+    },
+    "fontFamily": { "tooltip": "Yazı Tipi Ailesi" },
+    "fontSize": { "tooltip": "Yazı Boyutu" },
+    "superscript": { "tooltip": "Üst Simge" },
+    "subscript": { "tooltip": "Alt Simge" },
+    "bulletlist": { "tooltip": "Madde Listesi" },
+    "orderedlist": { "tooltip": "Sıralı Liste" },
+    "tasklist": { "tooltip": "Görev Listesi" },
+    "indent": { "tooltip": "Girinti" },
+    "outdent": { "tooltip": "Çıkıntı" },
+    "markdownTheme": { "tooltip": "Tema" },
+    "table": {
+      "tooltip": "Tablo",
+      "menu": {
+        "insert_table": { "with_header_row": "Başlık Satırı ile Ekle" },
+        "add_column_before": "Öncesine Sütun Ekle",
+        "add_column_after": "Sonrasına Sütun Ekle",
+        "delete_column": "Sütunu Sil",
+        "add_row_before": "Öncesine Satır Ekle",
+        "add_row_after": "Sonrasına Satır Ekle",
+        "delete_row": "Satırı Sil",
+        "merge_or_split_cells": "Hücreleri Birleştir veya Böl",
+        "delete_table": "Tabloyu Sil"
+      }
+    },
+    "blockquote": { "tooltip": "Alıntı Bloğu" },
+    "horizontalrule": { "tooltip": "Yatay Çizgi" },
+    "code": { "tooltip": "Kod" },
+    "codeblock": { "tooltip": "Kod Bloğu" },
+    "clear": { "tooltip": "Biçimlendirmeyi Temizle" },
+    "undo": { "tooltip": "Geri Al" },
+    "redo": { "tooltip": "İleri Al" },
+    "fullscreen": {
+      "tooltip": {
+        "fullscreen": "Tam Ekran",
+        "exit": "Tam Ekrandan Çık"
+      }
+    },
     "image": {
+      "tooltip": "Görsel",
+      "float": {
+        "left": { "tooltip": "Sola Yasla" },
+        "none": { "tooltip": "Yaslamayı Kaldır" },
+        "right": { "tooltip": "Sağa Yasla" }
+      },
       "dialog": {
-        "title": "Resim ekle",
+        "title": "Görsel Ekle",
+        "tab": {
+          "url": "URL",
+          "upload": "Yükle"
+        },
+        "form": {
+          "link": "Bağlantı",
+          "alt": "Metin",
+          "file": "Dosya",
+          "aspectRatio": "Oranları Koru"
+        },
+        "button": {
+          "apply": "Uygula"
+        }
+      }
+    },
+    "link": {
+      "tooltip": "Bağlantı",
+      "unlink": { "tooltip": "Bağlantıyı Kaldır" },
+      "open": "Bağlantıyı Aç",
+      "dialog": {
+        "title": "Bağlantı Ekle",
+        "link": "Bağlantı",
+        "rel": "İlişki",
+        "openInNewTab": "Yeni Pencerede Aç",
+        "messages": {
+          "invalidUrl": "Girdiğiniz URL adresi geçerli değil"
+        },
+        "button": {
+          "apply": "Uygula"
+        }
+      }
+    },
+    "video": {
+      "tooltip": "Video",
+      "dialog": {
+        "title": "Video Ekle",
+        "link": "Bağlantı",
         "button": {
           "apply": "Uygula"
         }

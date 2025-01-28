@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { isValidURL } from '@/utils';
+
 export default {
   props: {
     value: {
@@ -62,6 +64,11 @@ export default {
   methods: {
     apply() {
       if (this.url) {
+        // URL validation
+        if (!isValidURL(this.url)) {
+          alert(this.$t('editor.link.dialog.messages.invalidUrl'));
+          return;
+        }
         this.editor.chain().focus().setVideo({ src: this.url }).run();
       }
       this.close();

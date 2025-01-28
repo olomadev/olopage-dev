@@ -5,9 +5,7 @@
  * 
  * Plugin: https://github.com/yikoyu/vuetify-pro-tiptap
  */
-import 'vuetify-pro-tiptap/styles/editor.css'
-import 'vuetify-pro-tiptap/styles/markdown.css'
-import '@/styles/github.scss'
+import '@/components/classic-editor/styles/index.scss'
 
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -16,43 +14,27 @@ const toBase64 = file => new Promise((resolve, reject) => {
   reader.onerror = reject;
 });
 import i18n from "../i18n";
+const $t = i18n.global.t;
 import useStore from "../store";
 import config from "@/_config";
 import { getApiUrl, generateUid } from "@/utils"
 import slugify from 'slugify';
-import { markRaw } from 'vue';
-import { VuetifyTiptap, VuetifyViewer, createVuetifyProTipTap, defaultBubbleList } from 'vuetify-pro-tiptap';
-import Link from "@/extensions/classic-editor/link";
-import Image from "@/extensions/classic-editor/image";
-import Video from "@/extensions/classic-editor/video";
-
-import {  
+import { createVuetifyProTipTap } from "@/components/classic-editor/hooks";
+import { defaultBubbleList } from 'vuetify-pro-tiptap';
+import VuetifyTiptap from "@/components/classic-editor/VuetifyTiptap";
+import VuetifyViewer from "@/components/classic-editor/VuetifyViewer";
+import { 
   BaseKit,
+  History,
   Bold,
   Italic,
   Underline,
   Strike,
-  Color,
-  Highlight,
   Heading,
-  TextAlign,
-  FontFamily,
-  FontSize,
-  SubAndSuperScript,
-  BulletList,
-  OrderedList,
-  TaskList,
-  Indent,
-  Table,
-  Blockquote,
-  HorizontalRule,
-  Code,
-  CodeBlock,
-  Clear,
-  // Fullscreen,
-  History
-} from 'vuetify-pro-tiptap';
-import 'vuetify-pro-tiptap/style.css';
+  // Link,
+  // Image,
+  // Video,
+} from '../components/classic-editor/extensions';
 
 export const vuetifyProTipTap = createVuetifyProTipTap({
   lang: i18n.global.locale.value,
@@ -64,7 +46,7 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
   extensions: [
     BaseKit.configure({
       placeholder: {
-        placeholder: 'Enter you content here...'
+        placeholder: $t("editor.placeholder")
       },
       bubble: {
         // default config
@@ -79,74 +61,23 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
         }
       }
     }),
-    Bold,
-    Italic,
-    Underline,
-    Strike,
-    // Code.configure({ divider: true }),
-    Heading,
-    TextAlign,
-    FontFamily,
-    FontSize,
-    Color,
-    Highlight.configure({ divider: true }),
-    SubAndSuperScript.configure({ divider: true }),
-    Clear.configure({ divider: true }),
-    BulletList,
-    OrderedList,
-    TaskList,
-    Indent.configure({ divider: true }),
-    Link.configure({ divider: true }),
-    Image.configure({
-      // Generate a VDivider after the button
-      divider: true,
-      imageTabs: [],  // { name: 'SELECT', component: markRaw(SelectImage) }
-      // hiddenTabs: ['upload'],
-      async upload(file) {
-        const fileName = slugify(file.name, {
-          replacement: config.slugify.replacement,  // replace spaces with replacement character, defaults to `-`
-          remove: config.slugify.remove, // remove characters that match regex, defaults to `undefined`
-          lower: config.slugify.lower,   // convert to lower case, defaults to `false`
-          strict: config.slugify.strict,  // strip special characters except replacement, defaults to `false`
-          locale: "en", // language code of the locale to use
-          trim: config.slugify.trim, // trim leading and trailing replacement chars, defaults to `true`
-        });
-        // const url = URL.createObjectURL(file);  // mock api
-        const store = useStore()
-        const admin = store.getAdmin;
-        const base64 = await toBase64(file);
-        const res = await admin.http(
-          { 
-            method: "POST", 
-            url: "/files/create", 
-            data: { 
-              pageId: store.getResourceId,
-              fileId: generateUid(), 
-              fileName: fileName,  
-              fileType: file.type, 
-              fileSize: (file.size / 1024).toFixed(2), 
-              fileData: base64,
-              thumb: false,
-            },
-          }
-        );
-        let url = null;
-        if (res && res.status === 200 && res?.data?.data['original']) {
-          url = getApiUrl("/files/display?fileName=" + res?.data?.data.original.fileName);
+    History.configure({ t: { undo: $t('editor.undo.tooltip'), redo: $t('editor.redo.tooltip') } }),
+    Bold.configure({ t: $t('editor.bold.tooltip') }),
+    Italic.configure({ t: $t('editor.italic.tooltip') }),
+    Underline.configure({ t: $t('editor.underline.tooltip') }),
+    Strike.configure({ t: $t('editor.strike.tooltip') }),
+    Heading.configure({
+        t: {
+          h: $t('editor.heading.tooltip'),
+          h1: $t('editor.heading.h1.tooltip'),
+          h2: $t('editor.heading.h2.tooltip'),
+          h3: $t('editor.heading.h3.tooltip'),
+          h4: $t('editor.heading.h4.tooltip'),
+          h5: $t('editor.heading.h5.tooltip'),
+          h6: $t('editor.heading.h6.tooltip')
         }
-        return url;
       }
-    }),
-    Video,
-    Table.configure({ divider: true }),
-    Blockquote,
-    HorizontalRule,
-    CodeBlock.configure({ divider: true }),
-    History.configure({ divider: true }),
-    // Fullscreen.configure({
-    //   // Generate a VSpacer after the button
-    //   spacer: true
-    // })
+    ),
   ],
 });
 

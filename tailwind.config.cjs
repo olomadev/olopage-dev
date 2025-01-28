@@ -78,7 +78,6 @@ module.exports = {
   // important: ".tailwind",
   plugins: [
     require('flowbite-typography'),
-    require("@headlessui/tailwindcss"),
     // require("@tailwindcss/typography"),
     plugin(function ({ addVariant }) {
       addVariant("mouse", "@media (hover: hover)");

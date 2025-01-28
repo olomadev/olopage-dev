@@ -981,11 +981,5 @@ export default {
 </script>
 
 <style>
-@import "style.css";
-
-/* Vue Cropper container */
-.vue-cropper-container {
-  width: 100%;
-  max-height: 400px;
-}
+@import "style.css"
 </style>
