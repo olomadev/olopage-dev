@@ -22,16 +22,16 @@ export const Heading = TiptapHeading.extend({
           isActive: () => editor.isActive('heading', { level }) || false,
           disabled: !editor.can().toggleHeading({ level }),
           icon: `mdi-format-header-${level}`,
-          title: t[`h${level}`],
+          title: t(`editor.heading.h${level}.tooltip`),
         }));
 
         if (baseKitExt && baseKitExt.options.paragraph !== false) {
           items.unshift({
             action: () => editor.chain().focus().setParagraph().run(),
-            isActive: () => editor.isActive('paragraph') || false,
+            isActive: () => false,  // editor.isActive('paragraph') || false
             disabled: !editor.can().setParagraph(),
             icon: 'mdi-format-header-pound',
-            title: t.h,
+            title: t('editor.heading.tooltip'),
             divider: true,
           });
         }
@@ -42,7 +42,7 @@ export const Heading = TiptapHeading.extend({
           component: ActionMenuButton,
           componentProps: {
             icon: 'mdi-format-header-pound',
-            tooltip: t.h,
+            tooltip: t('editor.heading.tooltip'),
             disabled,
             items,
           }

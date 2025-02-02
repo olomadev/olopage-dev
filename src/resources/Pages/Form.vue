@@ -9,24 +9,8 @@
                   Custom Upload
                   https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
                 -->
-         <!-- 
-                  Custom Upload
-                  https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
-                -->
-                <VuetifyTiptap
-                  :key="editorKey"
-                  ref="VuetifyTiptapRef"
-                  v-model="model.contentJson"
-                  v-model:markdown-theme="markdownTheme"
-                  output="json"
-                  :outlined="true"
-                  :error-messages="errorMessages"
-                  rounded
-                  :min-height="600"
-                  :max-width="maxWidth"
-                  @change="onChange"
-                />
-<!--                 <ClassicEditor 
+                <ClassicEditor 
+                  ref="editorRef"
                   :key="editorKey"
                   v-model="model.contentJson"
                   v-model:markdown-theme="markdownTheme"
@@ -38,7 +22,7 @@
                   :max-width="maxWidth"
                   @change="onChange"
                 >
-                </ClassicEditor> -->
+                </ClassicEditor>
               </v-col>
             </v-row>
         </v-card>
@@ -275,7 +259,7 @@ export default {
         return false;
       }    
       // this.model.contentHtml = this.editor.getHTML()
-      this.model.contentHtml = this.$refs.VuetifyTiptapRef.editor.getHTML()
+      this.model.contentHtml = this.$refs.editorRef.editor.getHTML()
       const Self = this;
       this.loading = "primary";
       let response = null;

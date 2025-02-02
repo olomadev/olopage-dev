@@ -18,6 +18,7 @@ export const TABLE_MAX_GRID_SIZE = 10;
 export const TABLE_DEFAULT_SELECTED_GRID_SIZE = 2;
 
 export const COLORS_LIST = [
+  '', // none
   '#f44336',
   '#e91e63',
   '#9c27b0',
@@ -47,7 +48,7 @@ export const COLORS_LIST = [
 export const DEFAULT_FONT_FAMILY_VALUE = 'Hanken Grotesk';
 
 export const DEFAULT_FONT_FAMILY_LIST = [
-  { title: 'editor.default', value: DEFAULT_FONT_FAMILY_VALUE, divider: true, default: true },
+  { title: 'default', value: DEFAULT_FONT_FAMILY_VALUE, divider: true, default: true },
   { title: 'Arial', value: 'Arial' },
   { title: 'Arial Black', value: 'Arial Black' },
   { title: 'Georgia', value: 'Georgia' },
@@ -64,12 +65,11 @@ export const DEFAULT_FONT_FAMILY_LIST = [
 export const DEFAULT_MARKDOWN_THEME_VALUE = 'default';
 
 export const DEFAULT_MARKDOWN_THEME_LIST = [
-  { title: 'editor.default', value: DEFAULT_MARKDOWN_THEME_VALUE, default: true }
+  { title: 'default', value: DEFAULT_MARKDOWN_THEME_VALUE, default: true }
 ];
 
 export const DEFAULT_FONT_SIZE_LIST = [8, 10, 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72];
-
-export const DEFAULT_FONT_SIZE_VALUUE = 'default';
+export const DEFAULT_FONT_SIZE_VALUE = 'default';
 
 export const IMAGE_SIZE = {
   'size-small': 200,

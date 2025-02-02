@@ -24,10 +24,10 @@ export const BaseKit = Extension.create({
       bubble: {
         list: NODE_TYPE_MENU,
         defaultBubbleList,
-        button: ({ editor, extension, i18n }) => {
+        button: ({ editor, extension, t}) => {
           const { list = {}, defaultBubbleList } = extension.options?.bubble ?? {};
           const defaultList = defaultBubbleList?.(editor) ?? [];
-          return generateBubbleTypeMenu(list, defaultList, { editor, extension, i18n });
+          return generateBubbleTypeMenu(list, defaultList, { editor, extension, t });
         }
       }
     };

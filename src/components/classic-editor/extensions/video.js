@@ -1,17 +1,14 @@
 import { VIDEO_SIZE } from '../constants/define'
 import { getCssUnitWithDefault } from '@/utils';
 import { Node } from '@tiptap/core';
-import VideoDialog from '@/components/classic-editor/video/VideoDialog.vue';
-import VideoActionButton from '@/components/classic-editor/VideoActionButton.vue';
+import VideoDialog from '../video/VideoDialog.vue';
+import VideoActionButton from '../VideoActionButton.vue';
 
 function linkConvert(src) {
-  
   // Youtube
   src = src.replace('https://youtu.be/', 'https://www.youtube.com/watch?v=').replace('watch?v=', 'embed/');
-
   // Vimeo 
   src = src.replace('https://vimeo.com/', 'https://player.vimeo.com/video/');
-
   // Bilibili
   const isBilibiliLink = /^https?:\/\/www.bilibili.com\/video\/.*/i.test(src);
   if (isBilibiliLink) {
@@ -19,14 +16,12 @@ function linkConvert(src) {
       .replace(/\?.*$/i, '')
       .replace('https://www.bilibili.com/video/', 'https://player.bilibili.com/player.html?bvid=');
   }
-
   // Google Drive
   if (src.includes('drive.google.com')) {
     src = src.replace('/view', '/preview');
   }
   return src;
 }
-
 export const Video = Node.create({
   name: 'video',
   group: 'block',
@@ -114,7 +109,7 @@ export const Video = Node.create({
         style: 'display: flex;justify-content: center;',
       },
       dialogComponent: () => VideoDialog,
-      button: ({ editor, extension, i18n }) => {
+      button: ({ editor, extension, t }) => {
         const { dialogComponent } = extension.options;
 
         return {
@@ -122,7 +117,7 @@ export const Video = Node.create({
           componentProps: {
             isActive: () => editor.isActive('video') || false,
             icon: "mdi-video-plus",
-            tooltip: i18n.global.t('editor.video.tooltip'),
+            tooltip: t('editor.video.tooltip'),
           },
           componentSlots: {
             dialog: dialogComponent(),

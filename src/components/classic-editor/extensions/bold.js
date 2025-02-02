@@ -13,7 +13,7 @@ export const Bold = TiptapBold.extend({
             isActive: () => editor.isActive('bold') || false,
             disabled: !editor.can().toggleBold(),
             icon: 'mdi-format-bold',
-            tooltip: t,
+            tooltip: t('editor.bold.tooltip'),
           }
         };
       }

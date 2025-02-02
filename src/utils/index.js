@@ -36,6 +36,15 @@ export const formatDate = function (format, timestamp = new Date(), locale = "en
   return format.replace(/F|j|Y|YY|m|d|g|H|i|s|a|w|W|l|D/g, match => map[match] || match);
 };
 /**
+ * Convert file to base64 encoded object
+ */
+export const toBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
+});
+/**
  * Generate uuid
  */
 export const generateUid = function(uppercase = false) {

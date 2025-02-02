@@ -13,11 +13,11 @@ import admin from "./admin";
 import loader from "./loader";
 import useStore from "../store";
 import resources from "@/resources";
-import { useHttp } from "../plugins/useHttp";
+import { useHttp } from "../plugins/use-http";
 import axios from "axios";
 import cookies from "olobase-admin/src/utils/cookies";
 import { getApiUrl } from "@/utils"
-import { vuetifyProTipTap } from './tiptap'
+import { classicEditor } from './classic-editor'
 /**
  * Get cookie constants object
  */
@@ -60,9 +60,9 @@ export function registerPlugins(app) {
   app.config.globalProperties.$vuetify = vuetify;
   admin.install(app, store, axios, resources);
   //
-  // install classic editor
+  // install tiptap classic editor
   // 
-  app.use(vuetifyProTipTap);
+  app.use(classicEditor);
   //
   // Router must be defined at the bottom !!
   //

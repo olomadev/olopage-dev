@@ -31,6 +31,7 @@ import { BubbleMenu } from '@tiptap/vue-3'
 import { TextSelection } from '@tiptap/pm/state'
 import { Editor, Extension } from '@tiptap/vue-3'
 import { NodeSelection } from '@tiptap/pm/state'
+import i18n from '@/i18n';
 
 export default {
   props: {
@@ -81,7 +82,8 @@ export default {
 
       const _button = button({
         editor: this.editor,
-        extension: find
+        extension: find,
+        t: i18n.global.t
       })
 
       return _button

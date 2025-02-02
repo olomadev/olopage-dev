@@ -1,9 +1,9 @@
 import { IMAGE_SIZE } from '../constants/define'
 import { Image as TiptapImage } from '@tiptap/extension-image';
 import { VueNodeViewRenderer } from '@tiptap/vue-3';
-import ImageDialog from '@/components/classic-editor/image/ImageDialog.vue';
-import ImageView from '@/components/classic-editor/image/ImageView.vue';
-import ImageActionButton from '@/components/classic-editor/ImageActionButton.vue';
+import ImageDialog from '../image/ImageDialog.vue';
+import ImageView from '../image/ImageView.vue';
+import ImageActionButton from '../ImageActionButton.vue';
 
 export const Image = TiptapImage.extend({
   addAttributes() {
@@ -59,13 +59,13 @@ export const Image = TiptapImage.extend({
     return {
       ...this.parent?.(),
       upload: undefined,
-      width: IMAGE_SIZE['size-large'],
+      width: IMAGE_SIZE['size-medium'],
       display: 'inline',
       imageTabs: [],
       hiddenTabs: [],
       inline: true,
       dialogComponent: () => ImageDialog,
-      button: ({ editor, extension, i18n }) => {
+      button: ({ editor, extension, t }) => {
         const { upload, imageTabs, hiddenTabs, dialogComponent } = extension.options;
 
         return {
@@ -78,7 +78,7 @@ export const Image = TiptapImage.extend({
             isActive: () => editor.isActive('image') || false,
             disabled: !editor.can().setImage({}),
             icon: "mdi-image-plus",
-            tooltip: i18n.global.t('editor.image.tooltip'),
+            tooltip: t('editor.image.tooltip'),
           },
           componentSlots: {
             dialog: dialogComponent(),

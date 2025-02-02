@@ -141,12 +141,12 @@
     "remove": "Remove",
     "words": "Words",
     "characters": "Characters",
-    "default": "default",
     "size": {
       "small": { "tooltip": "Small" },
       "medium": { "tooltip": "Medium" },
       "large": { "tooltip": "Cover" }
     },
+    "default": "Default",
     "bold": { "tooltip": "Bold" },
     "italic": { "tooltip": "Italic" },
     "underline": { "tooltip": "Underline" },
@@ -170,7 +170,23 @@
       "right": { "tooltip": "Right" },
       "justify": { "tooltip": "Justify" }
     },
-    "fontFamily": { "tooltip": "Font family" },
+    "fontFamily": { 
+      "tooltip": "Font family",
+      "fonts": {
+        "default": "Default",
+        "Arial": "Arial",
+        "Arial Black": "Arial Black",
+        "Georgia": "Georgia",
+        "Impact": "Impact",
+        "Helvetica": "Helvetica",
+        "Tahoma": "Tahoma",
+        "Times New Roman": "Times New Roman",
+        "Verdana": "Verdana",
+        "Courier New": "Courier New",
+        "Monaco": "Monaco",
+        "Monospace": "Monospace"
+      }
+    },
     "fontSize": { "tooltip": "Font size" },
     "superscript": { "tooltip": "Superscript" },
     "subscript": { "tooltip": "Subscript" },

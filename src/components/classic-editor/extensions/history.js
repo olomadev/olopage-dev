@@ -18,7 +18,7 @@ export const History = TiptapHistory.extend({
             },
             disabled: !editor.can()[item](),
             icon: item == "undo" ? "mdi-undo" : "mdi-redo",
-            tooltip: item == "undo" ? t.undo : t.redo,
+            tooltip: item == "undo" ? t('editor.undo.tooltip') : t('editor.redo.tooltip'),
           }
         }));
       }

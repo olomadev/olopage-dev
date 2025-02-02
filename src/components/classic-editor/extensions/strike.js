@@ -12,7 +12,7 @@ export const Strike = TiptapStrike.extend({
           isActive: () => editor.isActive('strike') || false,
           disabled: !editor.can().toggleStrike(),
           icon: 'mdi-format-strikethrough',
-          tooltip: t,
+          tooltip: t('editor.strike.tooltip'),
         }
       })
     };

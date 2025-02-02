@@ -12,7 +12,7 @@ export const Italic = TiptapItalic.extend({
           isActive: () => editor.isActive('italic') || false,
           disabled: !editor.can().toggleItalic(),
           icon: 'mdi-format-italic',
-          tooltip: t,
+          tooltip: t('editor.italic.tooltip'),
         },
       }),
     };

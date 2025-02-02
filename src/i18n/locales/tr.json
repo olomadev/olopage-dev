@@ -144,12 +144,12 @@
     "remove": "Kaldır",
     "words": "Kelimeler",
     "characters": "Karakterler",
-    "default": "varsayılan",
     "size": {
       "small": { "tooltip": "Küçük" },
       "medium": { "tooltip": "Orta" },
       "large": { "tooltip": "Kapla" }
     },
+    "default": "Varsayılan",
     "bold": { "tooltip": "Kalın" },
     "italic": { "tooltip": "İtalik" },
     "underline": { "tooltip": "Altı Çizili" },
@@ -173,7 +173,23 @@
       "right": { "tooltip": "Sağa Hizala" },
       "justify": { "tooltip": "Yasla" }
     },
-    "fontFamily": { "tooltip": "Yazı Tipi Ailesi" },
+    "fontFamily": { 
+      "tooltip": "Yazı Tipi Ailesi",
+      "fonts": {
+        "default": "Varsayılan",
+        "Arial": "Arial",
+        "Arial Black": "Arial Black",
+        "Georgia": "Georgia",
+        "Impact": "Impact",
+        "Helvetica": "Helvetica",
+        "Tahoma": "Tahoma",
+        "Times New Roman": "Times New Roman",
+        "Verdana": "Verdana",
+        "Courier New": "Courier New",
+        "Monaco": "Monaco",
+        "Monospace": "Monospace"
+      }
+    },
     "fontSize": { "tooltip": "Yazı Boyutu" },
     "superscript": { "tooltip": "Üst Simge" },
     "subscript": { "tooltip": "Alt Simge" },

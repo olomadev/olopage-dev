@@ -11,7 +11,6 @@
 import InlineSvg from './InlineSvg.vue';
 
 export default {
-  // created: function() {}
   components: {
     InlineSvg,
   },

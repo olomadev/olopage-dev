@@ -60,7 +60,7 @@ const BubbleView = (options) => {
 
 const imageFloatMenus = (editor) => {
   const types = ['float-left', 'float-none', 'float-right']
-  const icons = ['formatFloatLeft', 'formatFloatNone', 'formatFloatRight']
+  const icons = ['mdi-format-float-left', 'mdi-format-float-none', 'mdi-format-float-right']
   const display = ['left', 'inline', 'right']
 
   return types.map((float, i) => ({
@@ -77,7 +77,7 @@ const imageFloatMenus = (editor) => {
 
 const imageSizeMenus = (editor) => {
   const types = ['size-small', 'size-medium', 'size-large']
-  const icons = ['sizeS', 'sizeM', 'sizeL']
+  const icons = ['mdi-size-s', 'mdi-size-m', 'mdi-size-l']
 
   return types.map((size, i) => ({
     type: `image-${size}`,
@@ -93,7 +93,7 @@ const imageSizeMenus = (editor) => {
 
 const videoSizeMenus = (editor) => {
   const types = ['size-small', 'size-medium', 'size-large']
-  const icons = ['sizeS', 'sizeM', 'sizeL']
+  const icons = ['mdi-size-s', 'mdi-size-m', 'mdi-size-l']
 
   return types.map((size, i) => ({
     type: `video-${size}`,
@@ -116,7 +116,7 @@ export const defaultBubbleList = (editor) => [
     component: ActionButton,
     componentProps: {
       tooltip: 'editor.image.dialog.form.aspectRatio',
-      icon: 'aspectRatio',
+      icon: 'mdi-aspect-ratio',
       action: () => {
         const isLock = editor.isActive('image', { lockAspectRatio: true })
         editor.chain().focus().updateImage({
@@ -132,7 +132,7 @@ export const defaultBubbleList = (editor) => [
     component: ActionButton,
     componentProps: {
       tooltip: 'editor.link.unlink.tooltip',
-      icon: 'linkVariantOff',
+      icon: 'mdi-link-variant-off',
       action: () => {
         const { href } = editor.getAttributes('link')
 
@@ -145,7 +145,7 @@ export const defaultBubbleList = (editor) => [
     component: ActionButton,
     componentProps: {
       tooltip: 'editor.link.open',
-      icon: 'openInNew',
+      icon: 'mdi-open-in-new',
       action: () => {
         const { href } = editor.getAttributes('link')
         if (isString(href) && href) {
@@ -159,7 +159,7 @@ export const defaultBubbleList = (editor) => [
     component: ActionButton,
     componentProps: {
       tooltip: 'editor.remove',
-      icon: 'delete',
+      icon: 'mdi-delete',
       action: () => {
         const { state, dispatch } = editor.view
         deleteSelection(state, dispatch)
@@ -205,6 +205,9 @@ export const generateBubbleTypeMenu = (
 
       const find = defaultList.find(k => k.type === ext)
       if (find) {
+
+        // console.error(find.componentProps.tooltip)
+
         _items.push({
           ...find,
           componentProps: {
@@ -219,7 +222,7 @@ export const generateBubbleTypeMenu = (
       const findExt = extensions.find(k => k.name === ext)
       if (findExt) {
         const { button } = findExt.options
-        const _button = button({ editor, extension: findExt, i18n: i18n })
+        const _button = button({ editor, extension: findExt, t: i18n.global.t })
 
         _items.push({
           type: ext,

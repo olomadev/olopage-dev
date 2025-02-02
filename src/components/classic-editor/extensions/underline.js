@@ -12,7 +12,7 @@ export const Underline = TiptapUnderline.extend({
           isActive: () => editor.isActive('underline') || false,
           disabled: !editor.can().toggleUnderline(),
           icon: 'mdi-format-underline',
-          tooltip: t
+          tooltip: t('editor.underline.tooltip')
         }
       })
     };

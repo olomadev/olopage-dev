@@ -57,8 +57,8 @@ export default {
 
         const _button = button({
           editor: this.editor,
-          t,
-          extension
+          extension,
+          t
         })
 
         if (Array.isArray(_button)) {

@@ -14,7 +14,7 @@ export const Link = TiptapLink.extend({
       ...this.parent?.(),
       openOnClick: false,  // By default, links won't open on click
       dialogComponent: () => LinkDialog,  // Link dialog component
-      button: ({ editor, extension, i18n }) => {
+      button: ({ editor, extension, t }) => {
         const { dialogComponent } = extension.options
 
         return {
@@ -23,7 +23,7 @@ export const Link = TiptapLink.extend({
             isActive: () => editor.isActive('link') || false,  // Check if the link is active
             disabled: !editor.can().setLink({ href: '' }),  // Disable if the link can't be set
             icon: "mdi-link-variant-plus",  // Icon for the button
-            tooltip: i18n.global.t('editor.link.tooltip')  // Tooltip text for the button
+            tooltip: t('editor.link.tooltip')  // Tooltip text for the button
           },
           componentSlots: {
             dialog: dialogComponent()  // Insert the dialog component into the button
