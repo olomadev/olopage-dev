@@ -37,10 +37,12 @@
 
         <va-boolean-input
           source="active"
+          class="ml-2"
           hide-details
         ></va-boolean-input>
         
         <va-boolean-input 
+          class="ml-2"
           source="emailActivation"
         >  
         </va-boolean-input>

@@ -37,8 +37,20 @@
             :style="contentDynamicStyles"
             :editor="editor"
             data-testid="value"
-          />
+            >
+          </editor-content>
         </slot>
+
+        <!-- custom bubble menu for table extension -->
+        <div
+          v-if="!isMobileDevice"
+          id="bubble-menu"
+          ref="bubbleMenuRef"
+          v-show="isBubbleMenuVisible"
+          :style="bubbleMenuStyle"
+        >
+          <button @click.stop.prevent="clickTableButton"><v-icon>mdi-dots-vertical</v-icon></button>
+        </div>
       </v-card>
     </v-input>
   </div>
@@ -50,6 +62,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3';
 import { EDITOR_UPDATE_THROTTLE_WAIT_TIME, EDITOR_UPDATE_WATCH_THROTTLE_WAIT_TIME } from './constants/define';
 import { useMarkdownTheme, useProvideTiptapStore } from './hooks';
 import { throttle, getCssUnitWithDefault, isBoolean, isEqual, differenceBy } from '@/utils';
+import { isMobile } from '@/utils/is-mobile';
 import BubbleMenu from './BubbleMenu.vue';
 import TipTapToolbar from './TiptapToolbar.vue';
 
@@ -139,13 +152,16 @@ export default {
     const { state, isFullscreen } = useProvideTiptapStore();
     return {
       state,
-      isFullscreen
+      isFullscreen,
+      isMobileDevice: isMobile()
     }
   },
   data() {
     return {
       editor: null,
       updateHandler: null,
+      bubbleMenuStyle: null,
+      isBubbleMenuVisible: false,
       markdownThemeStyle: null,
     }
   },
@@ -228,6 +244,10 @@ export default {
     },
   },
   methods: {
+    clickTableButton(event) {
+      event.stopImmediatePropagation();
+      document.getElementById('table-insert-button').click()
+    },
     getOutput(editor, output) {
       if (this.removeDefaultWrapper) {
         if (output === 'html') return editor.isEmpty ? '' : editor.getHTML();
@@ -252,3 +272,29 @@ export default {
   },
 };
 </script>
+
+<style>
+/* Bubble Menü ve Buton için CSS */
+#bubble-menu {
+  display: none; /* Başlangıçta gizli */
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+#bubble-menu button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+#bubble-menu button:hover {
+  background-color: #f0f0f0;
+}
+</style>

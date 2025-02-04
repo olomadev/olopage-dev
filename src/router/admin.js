@@ -3,6 +3,7 @@ import Dashboard from "@/views/Dashboard";
 import Account from "@/views/Account";
 import Password from "@/views/Password";
 import Error404 from "@/views/Error404";
+import Test from "@/views/Test";
 import Swagger from "@/views/Swagger";
 import i18n from "../i18n";
 
@@ -51,6 +52,14 @@ export default {
       meta: {
         title: i18n.global.t("routes.notFound"),
       },
-    }
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: Test,
+      meta: {
+        title: "Test Page",
+      },
+    },
   ],
 };

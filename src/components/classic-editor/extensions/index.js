@@ -17,19 +17,6 @@ export { default as Indent } from './indent';
 export { default as Link } from './link';
 export { default as Image } from './image';
 export { default as Video } from './video';
-// export { default as Table } from './indent';
-
- //  HorizontalRule,
- //  Image,
- //  Indent,
- //  Italic,
- //  Link,
- //  MarkdownTheme,
- //  OrderedList,
- //  Strike,
- //  SubAndSuperScript,
- //  Table,
- //  TaskList,
- //  TextAlign,
- //  Underline,
- //  Video,
+export { default as Table } from './table';
+export { default as Blockquote } from './blockquote';
+export { default as HorizontalRule } from './horizontal-rule';

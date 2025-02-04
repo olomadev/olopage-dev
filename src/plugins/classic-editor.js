@@ -37,24 +37,9 @@ import {
   Link,
   Image,
   Video,
-  // Highlight.configure({ divider: true }),
-  // SubAndSuperScript.configure({ divider: true }),
-  // TaskList,
-  // Indent.configure({ divider: true }),
-  // Link.configure({
-  //   dialogComponent: () => LinkDialog
-  // }),
-  // Image.configure({
-  //   imageTabs: [{ name: 'SELECT', component: markRaw(SelectImage) }],
-  //   width: 500,
-  //   // hiddenTabs: ['upload'],
-  //   upload(file: File) {
-  //     const url = URL.createObjectURL(file)
-  //     console.log('mock upload api :>> ', url)
-  //     return Promise.resolve(url)
-  //   }
-  // }),
-// Video,
+  Table,
+  Blockquote,
+  HorizontalRule,
 } from '../components/classic-editor/extensions';
 
 export const classicEditor = createVuetifyProTipTap({
@@ -139,6 +124,9 @@ export const classicEditor = createVuetifyProTipTap({
         return Promise.resolve(url)
       }
     }),
-    Video.configure({ t: $t, divider: false }),
+    Video.configure({ t: $t }),
+    Table.configure({ t: $t, divider: true }),
+    Blockquote.configure({ t: $t }),
+    HorizontalRule.configure({ t: $t }),
   ],
 });

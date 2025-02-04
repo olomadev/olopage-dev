@@ -63,12 +63,14 @@ export default {
 
       const isImage = selection.node?.type.name === 'image'
       const isVideo = selection.node?.type.name === 'video'
+      const isTable = selection.node?.type.name === 'table'
       const isText = selection instanceof TextSelection
 
       if (isLink) return 'link'
       if (isImage) return 'image'
       if (isVideo) return 'video'
       if (isText) return 'text'
+      if (isTable) return 'table'
       return undefined
     },
     nodeMenus() {

@@ -202,7 +202,7 @@
     "table": {
       "tooltip": "Tablo",
       "menu": {
-        "insert_table": { "with_header_row": "Başlık Satırı ile Ekle" },
+        "insert_table": { "create": "Tablo Yarat", "with_header_row": "Başlık Satırı ile Ekle" },
         "add_column_before": "Öncesine Sütun Ekle",
         "add_column_after": "Sonrasına Sütun Ekle",
         "delete_column": "Sütunu Sil",

@@ -8,9 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
   <style type="text/css">
     /* 
-      olobase app.css 
-      v2.
-      last revision: 30.12.2024
+      olobase app.css v3.
+      last revision: 04.02.2025
     */
     #app {
       width: 100%;
@@ -140,7 +139,7 @@
       margin-top: 0px !important;
       margin-bottom: 0px !important;
     }
-    /* fixes show table td font size */
+    /* fixes show table td font size and dropdown fontsize */
     .v-table > .v-table__wrapper > table > tbody > tr > td {
       font-size: 12px !important;
     }
@@ -201,16 +200,9 @@
     .v-list-item-title {
       font-size: 14px !important;
     }
-/*    .v-field--variant-outlined .v-field__outline__start, .v-field--variant-outlined .v-field__outline__notch::before, .v-field--variant-outlined .v-field__outline__notch::after, .v-field--variant-outlined .v-field__outline__end {
-        border: 1 solid #7b7b7b !important;
-    }
-*/
     .v-field--variant-outlined {
       color: #7b7b7b !important;
     }
-/*    .v-field__outline {
-      color: #7b7b7b !important;
-    }*/
     /* font global size: data-table grid and all cards */
     .v-container, .v-card-text {
       font-size: 13px !important;
@@ -282,14 +274,39 @@
     .v-expansion-panel__shadow {
       box-shadow: none !important;
     }
-    /*  .v-btn-group--density-default.v-btn-group {
-       height: 35px !important;
-    }*/
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .va-data-table table th {
+      background-color: none !important;
+    }
+    .va-data-table table th, .va-data-table table td {
+      border: 0 !important;
+      border-top: 1px solid #e5e7eb !important;
+    }
+    .va-data-table table th:first-child {
+      border-left: 1px solid #e5e7eb !important;
+    }
+    .va-data-table table td {
+      border-left: 1px solid #e5e7eb !important;
+      border-bottom: 1px solid #e5e7eb !important;
+    }
+    .va-data-table table tr:last-child td {
+      border-bottom: none !important;
+    }
     .v-data-table-footer {
       padding-top: 25px !important;
       padding-right: 0px !important;
       padding-bottom: 10px !important;
       padding-left: 0px !important;
+    }
+    #toggleSettings table th {
+      border-left: none !important;
+      border-right: none !important;
+      background-color: #fff !important;
     }
     /* datatable row hover */
     .v-theme--defaultTheme.v-data-table > .v-table__wrapper > table > tbody
@@ -327,6 +344,8 @@
     }
     .v-snackbar__content {
       margin: 4px !important;
+      padding: 0 !important;
+      padding-left: 20px !important;
     }
     .v-snackbar--variant-elevated {
       box-shadow: 0px 3px 1px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)), 
@@ -351,25 +370,6 @@
       -webkit-transform: translateY(-100%);  
     }
     /* v-snackbar transition end */
-
-    /* Solid datatable  */
-    table th + th { border-left:1px solid #dddddd; }
-    table td + td { border-left:1px solid #dddddd; }
-    /* fixes the date picker hide-details margin bottom problem */
-/*    table td + td:has(.v-input) {
-      vertical-align: top;
-    }*/
-    /*.va-data-table > .section {
-      margin-top: -20px;
-    }*/
-    /* va-data-table solids */
-    .va-data-table .v-table__wrapper table {
-      border: 1px solid #dddddd;
-      border-radius: 4px;
-    }
-    .va-data-table .v-table__wrapper table th + th {
-      border-left: 0 !important;
-    }
     .va-array-table-input .v-table__wrapper table {
       border: 1px solid #dddddd;
       border-radius: 4px;
@@ -386,7 +386,6 @@
       border-radius: 4px;
     }
     .va-show, .va-table .v-table__wrapper table {
-      border: 1px solid #dddddd;
       border-radius: 4px;
       font-size: 12px;
     }

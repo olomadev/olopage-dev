@@ -199,7 +199,7 @@
     "table": {
       "tooltip": "Table",
       "menu": {
-        "insert_table": { "with_header_row": "With header row" },
+        "insert_table": { "create": "Create Table",  "with_header_row": "With header row" },
         "add_column_before": "Add Column Before",
         "add_column_after": "Add Column After",
         "delete_column": "Delete Column",
