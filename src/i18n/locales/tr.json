@@ -9,6 +9,7 @@
     "login": "Giriş",
     "posts": "Yazılar",
     "pages": "Sayfalar",
+    "comments": "Yorumlar",
     "users": "Kullanıcılar",
     "roles": "Roller",
     "account": "Hesabım",
@@ -96,6 +97,7 @@
     "home": "Anasayfa",
     "posts": "Yazılar",
     "pages": "Sayfalar",
+    "comments": "Yorumlar",
     "categories": "Kategoriler",
     "roles": "Roller",
     "users": "Kullanıcılar",
@@ -290,6 +292,18 @@
         "parentId" : "Üst Kategori"
       }
     },
+    "comments": {
+      "title": "Yorumlar",
+      "buttonLabel": "Yorumlara Git",
+      "fields": {
+        "postTitle" : "Gönderi",
+        "name" : "Ad",
+        "email" : "E-posta",
+        "body" : "Yorum",
+        "published" : "Yayımlandı",
+        "createdAt" : "Oluşturulma"
+      }
+    },
     "posts": {
       "publish": "Yayınla",
       "preview": "Ön izle",
@@ -402,8 +416,12 @@
       "fields": {
         "q": "Ara",
         "email": "E-Posta",
-        "firstname": "Ad",
-        "lastname": "Soyad",
+        "userProfile": {
+          "firstname": "Ad",
+          "lastname": "Soyad",
+          "jobTitle": "İş Ünvanı", 
+          "themeColor": "Tema Rengi"
+        },
         "password": "Şifre",
         "userRoles": "Roller",
         "avatarImage": "Avatar",
@@ -413,7 +431,6 @@
         "newPassword": "Şifre",
         "active": "Aktif Mi",
         "createdAt": "Oluşturulma",
-        "themeColor": "Tema Rengi",
         "emailActivation": "E-Posta Aktivasyonu"
       }
     },

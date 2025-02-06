@@ -9,6 +9,7 @@
     "login": "Login",
     "posts": "Posts",
     "pages": "Pages",
+    "comments": "Comments",
     "users": "Users",
     "roles": "Roles",
     "account": "My Account",
@@ -94,6 +95,7 @@
     "home": "Home",
     "posts": "Posts",
     "pages": "Pages",
+    "comments": "Comments",
     "categories": "Categories",
     "users": "Users",
     "authorization": "Authorization",
@@ -287,6 +289,18 @@
         "parentId" : "Parent Category"
       }
     },
+    "comments": {
+      "title": "Comments",
+      "buttonLabel": "Go to Comments",
+      "fields": {
+        "postTitle" : "Post",
+        "name" : "Ad",
+        "email" : "E-mail",
+        "body" : "Comment",
+        "published" : "Published",
+        "createdAt" : "Created At"
+      }
+    },
     "posts": {
       "publish": "Publish",
       "preview": "Preview",
@@ -400,8 +414,12 @@
       "fields": {
         "q": "Search",
         "email": "E-Mail",
-        "firstname": "Firstname",
-        "lastname": "Lastname",
+        "userProfile": {
+          "firstname": "Firstname",
+          "lastname": "Lastname", 
+          "jobTitle": "Job Title", 
+          "themeColor": "Theme Color" 
+        },
         "password": "Password",
         "userRoles": "User Roles",
         "avatarImage": "Avatar Image",
@@ -412,7 +430,6 @@
         "active": "Active",
         "emailActivation": "E-Mail Activation",
         "createdAt": "Created At",
-        "themeColor": "Theme Color"
       },
     },
     "account": {

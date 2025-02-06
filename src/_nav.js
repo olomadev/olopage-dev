@@ -60,6 +60,11 @@ export default  {
           }
         ]
       },
+      {
+        icon: "mdi-chat",
+        text: t("menu.comments"),
+        link: "/comments",
+      },      
     ]; // end array
 
   } // end func

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="editor" class="vuetify-pro-tiptap">
+  <div v-if="editor" class="vuetify-pro-tiptap dense">
     
     <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableToolbar" />
 
@@ -8,8 +8,9 @@
         :flat="flat"
         :outlined="outlined"
         color="grey-lighten-4"
+        v-bind="$attrs"
         :style="{
-          borderColor: errorMessages ? '#ff5252' : undefined,
+          borderColor: $attrs['error-messages'] ? '#ff5252' : undefined,
           width: '100%',
         }"
         class="vuetify-pro-tiptap-editor"
@@ -24,6 +25,7 @@
 
         <TipTapToolbar
           v-if="!hideToolbar"
+          class="vuetify-pro-tiptap-editor__toolbar"
           :editor="editor"
           :disabled="disableToolbar"
         />

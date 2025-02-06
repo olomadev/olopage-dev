@@ -32,6 +32,14 @@ export default [
     actions: ["create", "list", "edit", "delete", "show"],
   },
   {
+    name: "comments",
+    label: "name",
+    permissions: [
+      { name: "admin", actions: ["create","list","edit", "delete", "show"] },
+    ],
+    actions: ["list", "edit", "delete", "show"],
+  },
+  {
     name: "permissions",
     label: "name",
     permissions: [

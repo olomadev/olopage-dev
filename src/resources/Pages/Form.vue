@@ -3,7 +3,7 @@
     <v-row no-gutters class="mb-2">    
       <v-col cols="12" md="8" lg="9" sm="12">
         <v-card :loading="loading" flat border height="100%" min-height="600" class="d-flex flex-column">
-            <v-row no-gutters class="classiceditor-form">
+            <v-row no-gutters>
               <v-col>
                 <!-- 
                   Custom Upload
@@ -19,7 +19,7 @@
                   :error-messages="errorMessages"
                   rounded
                   :min-height="600"
-                  :max-width="maxWidth"
+                  max-width="900"
                   @change="onChange"
                 >
                 </ClassicEditor>
@@ -161,7 +161,6 @@ export default {
       output: null,
       markdownTheme: null,
       errorMessages: null,
-      maxWidth: 900,
       model: {
         id: null,
         route: null,

@@ -37,22 +37,37 @@ export const Table = TiptapTable.extend({
           key: new PluginKey("bubbleMenu"),
           props: {
             handleDOMEvents: {
+              mousemove: (view, event) => {
+                const target = event.target;
+                if (target.classList.contains("resize-handle")) {
+                  alert("ok")
+                  document.body.style.cursor = "col-resize";
+                } else {
+                  document.body.style.cursor = "";
+                }
+              },
               click: (view, event) => {
                 const { target } = event;
 
-                // Eğer tablo hücresine tıklanmışsa
                 if (target.tagName !== "TD" && target.tagName !== "TH") return false;
 
                 const bubbleMenu = document.getElementById("bubble-menu");
                 if (!bubbleMenu) return false;
 
-                // Bubble menüyü mouse'un konumuna yerleştir
-                const rect = bubbleMenu.getBoundingClientRect();
-                const rowRect = target.closest("tr").getBoundingClientRect();
-                bubbleMenu.style.left = `${rowRect.right + window.scrollX - rect.width - 210}px`;
-                bubbleMenu.style.top = `${rowRect.bottom + window.scrollY - 122}px`;
+                // Show menu first
+                bubbleMenu.style.display = "block";
+                //
+                // Then adjust the settings (next render topic) ..
+                // fixes bug where 50px on the right left too much space at "first" launch ..
+                // 
+                setTimeout(() => {
+                  const rect = bubbleMenu.getBoundingClientRect();
+                  const rowRect = target.closest("tr").getBoundingClientRect();
 
-                bubbleMenu.style.display = "block"; // show menu
+                  bubbleMenu.style.left = `${rowRect.right + window.scrollX - rect.width - 210}px`;
+                  bubbleMenu.style.top = `${rowRect.bottom + window.scrollY - 122}px`;
+                }, 0);
+
                 window.selectedEditor = view;
                 return true;
               },

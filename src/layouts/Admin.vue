@@ -18,6 +18,46 @@
             </div>
           </template>
           
+          <template v-slot:header-buttons>
+            <v-menu v-if="authenticatedUser" transition="scale-transition" offset-y>
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  icon
+                  small
+                  v-bind="props" 
+                >
+                  <v-badge color="yellow" dot>
+                    <v-icon>mdi-chat-outline</v-icon>
+                  </v-badge>
+                </v-btn>
+              </template>
+              <v-card min-width="300px">
+                <v-card-title>{{ $t('resources.comments.title') }}</v-card-title>
+                <v-divider></v-divider>
+                <v-virtual-scroll
+                  :items="comments"
+                  height="300"
+                  item-height="50"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item>
+                      <v-list-item-title>{{ item.user }}</v-list-item-title>
+                      <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                  </template>
+                </v-virtual-scroll>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn size="small" variant="text" color="primary" @click="goToComments">
+                    {{ $t('resources.comments.buttonLabel') }}
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </template>
+
           <template v-slot:profile>
             <v-menu offset-y>
               <template v-slot:activator="{ props }">
@@ -106,6 +146,13 @@ export default {
       email: null,
       fullname: null,
       authenticatedUser: null,
+      comments: [
+        { user: "Ali", text: "Bu harika görünüyor!" },
+        { user: "Veli", text: "Tebrikler, harika bir iş çıkarmışsın!" },
+        { user: "Ayşe", text: "Bunu gerçekten çok beğendim!" },
+        { user: "Mehmet", text: "Daha fazla özellik eklemeyi düşünüyor musun?" },
+        { user: "Zeynep", text: "Tasarım gerçekten harika!" },
+      ]
     };
   },
   async created() {
@@ -145,6 +192,9 @@ export default {
     }
   },
   computed: {
+    goToComments() {
+
+    },
     getNavbarKey() {
       return this.$store.navbarKey + '_' + this.$store.getLocale;
     },

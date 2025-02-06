@@ -8,18 +8,22 @@
         </va-avatar-input>
 
         <va-text-input
-          source="firstname"
+          source="userProfile.firstname"
           :error-messages="firstnameErrors"
         ></va-text-input>
 
         <va-text-input
-          source="lastname"
+          source="userProfile.lastname"
           :error-messages="lastnameErrors"
         ></va-text-input>
 
         <va-text-input
           source="email"
           :error-messages="emailErrors"
+        ></va-text-input>
+
+        <va-text-input
+          source="userProfile.jobTitle"
         ></va-text-input>
 
         <va-text-input
@@ -69,14 +73,16 @@ export default {
   validations() {
     return {
       model: {
-        firstname: {
-          required,
-          minLength: minLength(2),
-        },
-        lastname: {
-          required,
-          minLength: minLength(2),
-          maxLength: maxLength(120),
+        userProfile: {
+          firstname: {
+            required,
+            minLength: minLength(2),
+          },
+          lastname: {
+            required,
+            minLength: minLength(2),
+            maxLength: maxLength(120),
+          },
         },
         userRoles: {
           required,
@@ -96,8 +102,6 @@ export default {
     return {
       model: {
         id: null,
-        firstname: null,
-        lastname: null,
         email: null,
         password: null,
         active: 0,
@@ -105,6 +109,10 @@ export default {
         userRoles: null,
         avatar: {
           image: null
+        },
+        userProfile: {
+          firstname: null,
+          lastname: null,
         }
       },
     };
@@ -118,21 +126,21 @@ export default {
   computed: {
     firstnameErrors() {
       const errors = [];
-      if (!this.v$['model'].firstname.$dirty) return errors;
-      this.v$['model'].firstname.required.$invalid &&
+      if (!this.v$['model']['userProfile'].firstname.$dirty) return errors;
+      this.v$['model']['userProfile'].firstname.required.$invalid &&
         errors.push(this.$t("v.text.required"));
-      this.v$['model'].firstname.minLength.$invalid &&
+      this.v$['model']['userProfile'].firstname.minLength.$invalid &&
         errors.push(this.$t("v.string.minLength", { min: "2" }));
       return errors;
     },
     lastnameErrors() {
       const errors = [];
-      if (!this.v$['model'].lastname.$dirty) return errors;
-      this.v$['model'].lastname.required.$invalid &&
+      if (!this.v$['model']['userProfile'].lastname.$dirty) return errors;
+      this.v$['model']['userProfile'].lastname.required.$invalid &&
         errors.push(this.$t("v.text.required"));
-      this.v$['model'].lastname.minLength.$invalid &&
+      this.v$['model']['userProfile'].lastname.minLength.$invalid &&
         errors.push(this.$t("v.string.minLength", { min: "2" }));
-      this.v$['model'].lastname.maxLength.$invalid &&
+      this.v$['model']['userProfile'].lastname.maxLength.$invalid &&
         errors.push(this.$t("v.string.maxLength", { max: "120" }));
       return errors;
     },
