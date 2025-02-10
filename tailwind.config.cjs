@@ -75,7 +75,7 @@ module.exports = {
       "5xl": ['56px'],
     }
   },
-  // important: ".tailwind",
+  // important: ".editor",
   plugins: [
     require('flowbite-typography'),
     // require("@tailwindcss/typography"),

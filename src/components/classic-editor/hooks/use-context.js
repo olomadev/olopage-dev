@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 const state = reactive({
   extensions: [],
   defaultLang: undefined,
-  defaultMarkdownTheme: undefined,
+  defaultMarkdownTheme: "github",
 });
 
 export function createContext(instance) {

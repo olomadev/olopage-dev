@@ -58,6 +58,5 @@ export default {
     app.provide("i18n", i18n);
     app.config.globalProperties.$admin = admin;
     app.component("PageNotFound", PageNotFound);
-    store.setAdmin(admin)
   },
 };

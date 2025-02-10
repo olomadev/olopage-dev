@@ -10,6 +10,8 @@
                   https://github.com/yikoyu/vuetify-pro-tiptap/issues/333
                 -->
                 <ClassicEditor 
+                  v-if="extensions.length > 0"
+                  :extensions="extensions"
                   ref="editorRef"
                   :key="editorKey"
                   v-model="model.contentJson"
@@ -102,6 +104,7 @@
     </v-row>
   </va-form>
 </template>
+
 <script>
 import { provide } from 'vue';
 import { useDisplay } from 'vuetify';
@@ -110,14 +113,45 @@ import { required, email, minLength, maxLength } from "@vuelidate/validators";
 import Utils from "olobase-admin/src/mixins/utils";
 import useStore from "@/store";
 import Pages from "@/mixins/pages";
-// import ClassicEditor from '@/components/classic-editor/ClassicEditor.vue';
+import ClassicEditor from "@/components/classic-editor/ClassicEditor";
+// import VuetifyViewer from "@/components/classic-editor/VuetifyViewer";
+import { defaultBubbleList } from "@/components/classic-editor/bubble";
+import config from "@/_config";
+import { getApiUrl, generateUid, toBase64 } from "@/utils"
+import slugify from 'slugify';
+
+import {
+  BaseKit,
+  History,
+  Bold,
+  Italic,
+  Underline,
+  Strike,
+  Heading,
+  TextAlign,
+  FontFamily,
+  FontSize,
+  Color,
+  Highlight,
+  Clear,
+  BulletList,
+  OrderedList,
+  Indent,
+  Link,
+  Image,
+  Video,
+  Table,
+  Blockquote,
+  HorizontalRule,
+} from '@/components/classic-editor/extensions';
 
 export default {
   props: ["id", "item"],
   mixins: [Utils, Pages],
-  // components: {
-  //   ClassicEditor
-  // },
+  components: {
+    ClassicEditor,
+    // VuetifyViewer
+  },
   setup() {
     let vuelidate = useVuelidate();
     const { smAndDown } = useDisplay();
@@ -150,6 +184,7 @@ export default {
   },
   data() {
     return {
+      extensions: [],
       editor: null,
       editorKey: 0,
       draftId: null,
@@ -174,6 +209,94 @@ export default {
     };
   },
   async created() {
+    this.extensions = [
+      BaseKit.configure({
+        placeholder: {
+          placeholder: this.$t("editor.placeholder")
+        },
+        bubble: {
+          // default config
+          list: {
+            image: [ 'float-left', 'float-none', 'float-right', 'divider', 'image-size-small', 'image-size-medium', 'image-size-large', 'divider', 'textAlign', 'divider', 'image', 'image-aspect-ratio', 'remove'],
+            text: ['bold', 'italic', 'underline', 'strike', 'divider', 'color', 'highlight', 'textAlign', 'divider', 'link'],
+            video: ['video', 'video-size-small', 'video-size-medium', 'video-size-large', 'remove']
+          },
+          defaultBubbleList: editor => {
+            // You can customize the bubble menu here
+            const defaultBubble = defaultBubbleList(editor)
+            return defaultBubble; // default customize bubble list
+          }
+        }
+      }),
+      History.configure({ t: this.$t, divider: true  }),
+      FontFamily.configure({ t: this.$t, divider: true }),
+      FontSize.configure({ t: this.$t, divider: true }),
+      Bold.configure({ t: this.$t }),
+      Italic.configure({ t: this.$t }),
+      Underline.configure({ t: this.$t }),
+      Strike.configure({ t: this.$t }),
+      Heading.configure({ t: this.$t }),
+      TextAlign.configure({ t: this.$t, types: ['heading', 'paragraph', 'image', 'blockquote', 'div'] }),
+      Clear.configure({ t: this.$t, divider: true }),
+      Color.configure({ t: this.$t }),
+      Highlight.configure({ t: this.$t, divider: true }),
+      BulletList.configure({
+        t: this.$t,
+        HTMLAttributes: {
+          class: 'list-disc pl-5',
+        },
+      }),
+      OrderedList.configure({
+        t: this.$t,
+        HTMLAttributes: {
+          class: 'list-decimal pl-5',
+        },
+      }),
+      Indent.configure({ t: this.$t, divider: true }),
+      Link.configure({ t: this.$t, divider: false }),
+      Image.configure({
+        t: this.$t,
+        width: 500,
+        // imageTabs: [],  // { name: 'SELECT', component: markRaw(SelectImage) }
+        // hiddenTabs: ['upload'],
+        async upload(file) {
+          const fileName = slugify(file.name, {
+            replacement: config.slugify.replacement,  // replace spaces with replacement character, defaults to `-`
+            remove: config.slugify.remove, // remove characters that match regex, defaults to `undefined`
+            lower: config.slugify.lower,   // convert to lower case, defaults to `false`
+            strict: config.slugify.strict,  // strip special characters except replacement, defaults to `false`
+            locale: "en", // language code of the locale to use
+            trim: config.slugify.trim, // trim leading and trailing replacement chars, defaults to `true`
+          });
+          // const url = URL.createObjectURL(file);  // mock api
+          const base64 = await toBase64(file);
+          const res = await this.admin.http(
+            { 
+              method: "POST", 
+              url: "/files/create", 
+              data: { 
+                pageId: store.getResourceId,
+                fileId: generateUid(), 
+                fileName: fileName,  
+                fileType: file.type, 
+                fileSize: (file.size / 1024).toFixed(2), 
+                fileData: base64,
+                thumb: false,
+              },
+            }
+          );
+          let url = null;
+          if (res && res.status === 200 && res?.data?.data['original']) {
+            url = getApiUrl("/files/display?fileName=" + res?.data?.data.original.fileName);
+          }
+          return Promise.resolve(url)
+        }
+      }),
+      Video.configure({ t: this.$t }),
+      Table.configure({ t: this.$t, divider: true }),
+      Blockquote.configure({ t: this.$t }),
+      HorizontalRule.configure({ t: this.$t }),
+    ];
     this.model.id = this.generateId(this);
     const store = useStore()
     store.setResourceId(this.model.id); // set id for tiptap image process

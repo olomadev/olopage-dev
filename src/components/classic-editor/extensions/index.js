@@ -20,3 +20,4 @@ export { default as Video } from './video';
 export { default as Table } from './table';
 export { default as Blockquote } from './blockquote';
 export { default as HorizontalRule } from './horizontal-rule';
+export { default as CodeBlock } from './code-block';

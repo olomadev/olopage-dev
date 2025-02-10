@@ -1,70 +1,55 @@
 <template>
-  <div> 
-    <va-list 
-      disable-create
-      disable-settings
-      row-create
-      :fields="fields"
-      :filters="filters"
-      :items-per-page="200"
+  <va-list 
+    :fields="fields"
+    :filters="filters"
+    disable-settings
+  >
+    <va-data-table-server 
+      disable-show
+      disable-edit
+      :show-expand="true"
+      :expand-on-click="true"
+      :disable-actions="false"
+       row-save-dialog
+       row-save-dialog-width="600"
+       row-save-dialog-height="700"
     >
-      <va-data-table-server
-        row-create
-        row-clone
-        row-edit
-        disable-edit
-        disable-show
-        disable-clone
-        disable-create-redirect
-      >
-      </va-data-table-server>
-    </va-list>
-  </div>
+      <template v-slot:expanded-row="{ columns, item }">
+        <tr>
+          <td :colspan="columns.length">
+            <div class="comment-text">
+              <span v-html="getHtml(item.body)"></span>
+            </div>
+          </td>
+        </tr>
+      </template>
+    </va-data-table-server>
+  </va-list>
 </template>
 
 <script>
-import { required } from "@vuelidate/validators";
+import { marked } from "marked";
+import hljs from 'highlight.js';
 
 export default {
   props: ["resource", "title"],
-  inject: [],
-  provide() {
-    return {
-      validations: {
-        form: {
-          published: {
-            required
-          },
-        }
+  setup() {
+    marked.use({
+      gfm: true,
+      breaks: true,
+      highlight: (code, lang) => {
+        const language = hljs.getLanguage(lang) ? lang : "plaintext";
+        return hljs.highlight(code, { language }).value;
       },
-      errors: {
-        publishedErrors: (v$) => {
-          const errors = [];
-          if (!v$['form'].method.$dirty) return errors;
-          v$['form'].method.required.$invalid &&
-            errors.push(this.$t("v.text.required"));
-          return errors;
-        },
-      }
-    };
+    });
+    return { marked };
   },
   data() {
     return {
-      groupBy: [{ key: 'postTitle' }],
-      selected: [],
       filters: [],
       fields: [
         {
-          source: "data-table-group",
-          label: this.$t("va.datatable.group"),
-          sortable: false,
-        },
-        {
-          source: "postTitle",
-          sortable: true,
-        },
-        {
-          source: "body",
+          source: "createdAt",
           sortable: true,
         },
         {
@@ -72,11 +57,7 @@ export default {
           sortable: true,
         },
         {
-          source: "email",
-          type: "select",
-          attributes: {
-            reference: "actions",
-          },
+          source: "postTitle",
           sortable: true,
         },
         {
@@ -85,7 +66,55 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    getHtml(html) {
+      return marked.parse(html); // Güncellenmiş `marked` fonksiyonunu kullan
+    }
   }
 };
 </script>
 
+<style>
+.comment-text {
+  padding: 10px;
+}
+.comment-text p {
+  font-size: 13px;
+}
+.comment-text pre {
+  font-size: 12px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.comment-text {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.comment-text strong {
+  font-weight: bold;
+}
+.comment-text em {
+  font-style: italic;
+}
+.comment-text blockquote {
+  background-color: #f8f9fa;
+  border-left: 5px solid gray;
+  padding: 5px 20px;
+  font-style: italic;
+  color: #555;
+}
+.comment-text ul {
+  padding-left: 20px;
+}
+.comment-text li {
+  font-size: 12px;
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+.comment-text u {
+  text-decoration: underline;
+}
+</style>

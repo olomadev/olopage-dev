@@ -67,6 +67,7 @@ import { throttle, getCssUnitWithDefault, isBoolean, isEqual, differenceBy } fro
 import { isMobile } from '@/utils/is-mobile';
 import BubbleMenu from './BubbleMenu.vue';
 import TipTapToolbar from './TiptapToolbar.vue';
+import './styles/index.scss'
 
 export default {
   name: 'ClassicEditor',

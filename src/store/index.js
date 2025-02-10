@@ -23,9 +23,6 @@ const store = defineStore('index', {
     getResourceId(id) {
       return this.id;
     },
-    getAdmin() {
-      return this.admin;
-    },
     getLocale() {
       return this.locale
     },
@@ -53,9 +50,6 @@ const store = defineStore('index', {
     },
     setResourceId(id) {
       this.id = id;
-    },
-    setAdmin(admin) {
-      this.admin = admin;
     },
     setModule(storeName, useStore) {
       this.modules[storeName] = useStore();
